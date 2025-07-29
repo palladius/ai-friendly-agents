@@ -1,6 +1,8 @@
 
 # 1. global imports
 from google.adk.agents import Agent
+from google.adk.agents.callback_context import CallbackContext
+from google.adk.agents.readonly_context import ReadonlyContext
 import logging
 import dotenv
 import os
@@ -116,6 +118,45 @@ def tool_get_colorful_database_schema_markdown():
     #return { "status": "success", "log": "Database schema printed to console. Sorry Gemini you cant see it but it was beautiful" }
 # --- Agent ---
 
+BASE_INSTRUCTION = (
+    "You are Salvatore Siculo (nicknames 'Salvo' or 'Siculo'), a SQL expert."
+    "You'll be able to look at DB structure and answer questions about it."
+    "You will use tools to access schema, tables, and rows. You'll be able to execute generic SQL for one given multi-DB file."
+    "Currently just supports sqlite3."
+    ""
+    "Whenever asked about date, time, location, version or context, feel free to call the `tool_simple_context` tool. Apart from that, all you do is SQL."
+    "At the beginning, start greeting the user, introduce yourself, then use tools to access the database."
+    "make yourself aware of the tables, a a relationship among tables, in order to be able to answer questions by the users"
+)
+
+async def preload_db_schema_callback(callback_context: CallbackContext):
+    """
+    A before_agent_callback that loads the DB schema into session state on the first turn.
+    """
+    if not callback_context.state.get("db_schema_loaded"):
+        #logging.info("DB schema not loaded for session %s. Loading now.", callback_context.session_id)
+        logging.info("DB schema not loaded for session %s. Loading now.", callback_context.state.get("session_id"))
+        db_details = tool_get_database_details()
+        schema_markdown = database_schema_to_colorful_markdown(db_details)
+
+        callback_context.state['db_schema'] = schema_markdown
+        callback_context.state["db_schema_loaded"] = True
+
+    # Return None to allow the agent to continue its run.
+    return None
+
+def get_instruction_with_schema(ctx: ReadonlyContext) -> str:
+    """
+    An InstructionProvider that dynamically builds the instruction,
+    prepending the DB schema if it's available in the session state.
+    """
+    #schema_markdown = ctx.session.state.get('db_schema')
+    schema_markdown = ctx.state.get('db_schema')
+    if schema_markdown:
+        return f"DATABASE SCHEMA:\n{schema_markdown}\n\nINSTRUCTIONS:\n{BASE_INSTRUCTION}"
+    return BASE_INSTRUCTION
+
+
 def tool_simple_context():
     '''Returns info on the machine where the agent is running: date, path, some ENV vars, user location and software VERSION.'''
     # Read agent version from "./VERSION" file
@@ -152,16 +193,8 @@ root_agent = Agent(
 #   model="gemini-2.5-pro", # websockets.exceptions.ConnectionClosedError: received 1008 (policy violation) models/gemini-2.5-pro is not found for API version v1alpha, or is not supported for bidiGenerateContent. Call ListModels to; then sent 1008 (policy violation) models/gemini-2.5-pro is not found for API version v1alpha, or is not supported for bidiGenerateContent. Call ListModels to
    description="Agent to answer questions on SQL databases. ",
    # Instructions to set the agent's behavior.
-   instruction="You are Salvatore Siculo (nicknames 'Salvo' or 'Siculo'), a SQL expert."
-            "You'll be able to look at DB structure and answer questions about it."
-            "You will use tools to access schema, tables, and rows. You'll be able to execute generic SQL for one given multi-DB file."
-            "Currently just supports sqlite3."
-            ""
-            "Whenever asked about date, time, location, version or context, feel free to call the `tool_simple_context` tool. Apart from that, all you do is SQL."
-            "At the beginning, start greeting the user, introduce yourself, then use tools to access the database."
-            "make yourself aware of the tables, the data and the relationship among tables, in order to be able to answer questions by the users"
-            ,
-
+   instruction=get_instruction_with_schema,
+   before_agent_callback=preload_db_schema_callback,
    tools=[
        tool_get_database_details,
        tool_execute_sql,
