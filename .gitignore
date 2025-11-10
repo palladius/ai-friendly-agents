@@ -188,3 +188,6 @@ tmp/
 .gemini/
 .DS_Store
 .justfile_last_update
+rag/adk-python/
+rag/adk-java
+rag/adk-go/

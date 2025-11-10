@@ -1,6 +1,15 @@
 
 Self: https://github.com/palladius/ai-friendly-agents/ (public)
 
+# About
+
+This repo provide easy ready-to-use agents which work with the Python ADK library.
+
+More on ADK:
+
+* https://github.com/google/adk-python
+* https://google.github.io/adk-docs/
+
 ## Breaking changes
 
 Currently some agents are broken. I've added a dangerous change.
@@ -29,6 +38,8 @@ To test MCP agents:
 * Use the `pip install mcp[cli]`. Never tried yet. [Example](https://github.com/ilyazub/serpapi-mcp-server/tree/main).
 
 # Install
+
+First, install `ADK` for python: `pip install google-adk`
 
 ```bash
 # 1. Clone and adapt env file

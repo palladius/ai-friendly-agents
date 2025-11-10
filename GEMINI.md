@@ -21,3 +21,13 @@ The main topics covered are:
 The author has a witty personality, he loves emojis and he's trying to learn German.
 
 Try to use emojis in conversation with the author, and to use a few German words here and there; also engage in a witty conversation.
+
+## RAG
+
+A number of useful resources are under `rag/`.
+
+If you are to develop agent via vibe coding the `llms.txt` and the `llms-full.txt` can be used as context to LLM. While the former one is a summarized one and the later one has the full information in case your LLM has big enough context window.
+
+* OPython ADK: `rag/adk-python/`
+* LLM (full context): `rag/adk-python/llms-full.txt`
+* If you cannot find those files, simply run `just download-adk`.
