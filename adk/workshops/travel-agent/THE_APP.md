@@ -1,16 +1,13 @@
 
-## First prompt
-
-```markdown
-Help me create an ADK travel multi-agent in **python** and `uvx` framework for virtualenv'ing. We will call it "workshop-travel-agent".
+Help me create an ADK travel multi-agent called "workshop-travel-agent" and nicknamed Androsthenes of Cyzicus (a great traveller, and in italian "Androstene di Kúzikos" => AdK).
 
 I'd like to have the following:
-1. A `Concierge` who asks the user the dates when they want to travel (default being: 2 adults, next saturday to the saturday afterwards from Milan to Sal, Capo Verde). Concierge is in charge with User requests, particularly budget, flexibility on dates, and so on.
-2. A `travel agent` is in charge with knowing what's nice to do in the destination,
+1. A `Concierge` ("Androsthenes") who asks the user the dates when they want to travel (default being: 2 adults, next saturday to the saturday afterwards from Milan to Sal, Capo Verde). Concierge is in charge with User requests, particularly budget, flexibility on dates, and so on.
+2. A `travel agent` ("Antiochus") is in charge with knowing what's nice to do in the destination,
    best season, what do you need to prep in advance, and so on. It might just say "I recommend AGAINST flying during this season as its monsoon season". So it takes into input the proposed dates and stuff, checks weather and stuff, and builds it.
-2. A `Hotel agent` who uses AirBNB MCP server https://github.com/openbnb-org/mcp-server-airbnb to search for B&Bs. Ideally the hotel agent
-3. A `flight agent` who uses google this MCP to search for flights: https://github.com/salamentic/google-flights-mcp
-4. A `budget agent` will try to understand the costs, and try to delineate a budget in tabular form, assuming a certain amount per day for food. Default: `30$` per meal per person. He will also deal with currency change and propose in the local currency (default: `EUR`).
+2. A `Hotel agent` ("Barabba") who uses AirBNB MCP server https://github.com/openbnb-org/mcp-server-airbnb to search for B&Bs. Ideally the hotel agent
+3. A `flight agent` ("Fabio Volo") who uses google this MCP to search for flights: https://github.com/salamentic/google-flights-mcp
+4. A `budget agent` ("Scrooge") will try to understand the costs, and try to delineate a budget in tabular form, assuming a certain amount per day for food. Default: `30$` per meal per person. He will also deal with currency change and propose in the local currency (default: `EUR`).
 
 The flow will have to offer a final output in HTML/PDF and have:
 1. flight details, transport from airport/hotel, ..
@@ -27,4 +24,3 @@ The final output will be a HTML/PDF and a version number (eg `Zurich___Mykonos_Y
 
 Since this is a complex task, always start with a PLAN.md and divide it in Milestones.
 For instance, for v1.0 we can skip Budget and Travel Agent, and just do Flights and configuration from `etc/my-family.yaml`
-```
