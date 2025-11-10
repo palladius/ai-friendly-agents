@@ -1,6 +1,7 @@
 import logging
 from google.adk.agents import LlmAgent
-from src.tools import now, get_default_travel_dates
+from google.adk.sessions import Session
+from src.tools import get_default_travel_dates, calculate_date, now
 from src.data_classes import Family
 from src.flight_agent import FlightAgent
 from src.hotel_agent import HotelAgent
@@ -14,10 +15,9 @@ class ConciergeAgent(LlmAgent):
         super().__init__(
             name=name,
             model=model,
-            instruction=f"""Welcome! You are a helpful concierge agent.
-            Your main task is to greet the user and assist with their travel plans.
+            instruction=f"""Welcome! You are a helpful concierge agent. Your main task is to greet the user and assist with their travel plans.
             
-            IMPORTANT RULE: You have a `now()` tool that tells you the current date and time. When the user mentions a relative date like 'today', 'tomorrow', or 'next week', you MUST use the `now()` tool to determine the current date and calculate the exact date before calling any other agent's tools. Do not ask the user for the date.
+            IMPORTANT RULE: You have a `calculate_date` tool. When the user mentions a relative date like 'today', 'tomorrow', or 'in 3 days', you MUST use the `calculate_date` tool to determine the absolute date before calling any other agent's tools. Do not ask the user for the date.
             
             Start by saluting the first person in the family list, {family_config.Family[0].Name}.
             You are assisting the {family_config.Family[0].Surname} family. The family consists of:
@@ -29,7 +29,7 @@ class ConciergeAgent(LlmAgent):
             If the user asks for hotel information, delegate the task to the `Barabba` agent.
             """,
             description="A concierge agent that greets users, proposes a default travel plan, and delegates flight and hotel queries.",
-            tools=[now, get_default_travel_dates],
+            tools=[get_default_travel_dates, calculate_date, now],
             sub_agents=[
                 FlightAgent(name="Fabio_Volo", model=model, log_file="log/flight_agent.log"),
                 HotelAgent(name="Barabba", model=model, log_file="log/hotel_agent.log")
@@ -45,9 +45,14 @@ class ConciergeAgent(LlmAgent):
         self._logger.setLevel(logging.INFO)
         self._logger.info(f"Initializing ConciergeAgent with name: {self.name}")
 
-# Example usage (for testing purposes, not part of the agent definition itself)
-if __name__ == "__main__":
-    # This part would typically be in a runner or main application file
-    concierge = ConciergeAgent(name="Androsthenes", model="gemini-2.5-flash")
-    print(f"Concierge Agent Name: {concierge.name}")
-    print(f"Concierge Agent Description: {concierge.description}")
+    async def run(self, session: Session):
+        # Proactively get the current date and add it to the session state
+        current_date = now().split(" ")[0] # Get just the date part
+        session.context["current_date"] = current_date
+        self._logger.info(f"Proactively set current_date to: {current_date}")
+
+        # Make the current_date available to the tools
+        self.tools["calculate_date"].keywords["current_date"] = current_date
+        self.tools["get_default_travel_dates"].keywords["current_date"] = current_date
+
+        await super().run(session)

@@ -12,6 +12,12 @@ from src.config import load_config
 
 async def main():
     """Main function to run the concierge agent."""
+    # Suppress verbose logging from libraries
+    logging.basicConfig(level=logging.WARNING)
+    logging.getLogger('google.genai').setLevel(logging.CRITICAL)
+    logging.getLogger('google.adk').setLevel(logging.CRITICAL)
+    logging.getLogger('asyncio').setLevel(logging.CRITICAL)
+
     parser = argparse.ArgumentParser(description="Run the Concierge Agent.")
     parser.add_argument(
         "-f", "--file",
@@ -23,9 +29,6 @@ async def main():
         help="Initial query to send to the Concierge Agent."
     )
     args = parser.parse_args()
-
-    # Suppress the google.genai warning
-    logging.getLogger('google.genai').setLevel(logging.CRITICAL)
 
     config_path = os.path.abspath(args.file)
     family_config = load_config(config_path)
@@ -59,7 +62,10 @@ async def main():
 
         async for event in events:
             if event.is_final_response():
-                print(f"Androsthenes: {event.content.parts[0].text}")
+                if event.content and event.content.parts:
+                    print(f"Androsthenes: {event.content.parts[0].text}")
+                else:
+                    print("Androsthenes: I encountered an issue and cannot provide a response.")
     else:
         while True:
             user_input = input("> ")
@@ -75,7 +81,10 @@ async def main():
 
             async for event in events:
                 if event.is_final_response():
-                    print(f"Androsthenes: {event.content.parts[0].text}")
+                    if event.content and event.content.parts:
+                        print(f"Androsthenes: {event.content.parts[0].text}")
+                    else:
+                        print("Androsthenes: I encountered an issue and cannot provide a response.")
 
 if __name__ == "__main__":
     asyncio.run(main())

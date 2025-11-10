@@ -11,3 +11,24 @@ def get_default_travel_dates() -> str:
     next_saturday = today + timedelta(days=days_until_saturday)
     saturday_after = next_saturday + timedelta(weeks=1)
     return f"from {next_saturday.strftime('%Y-%m-%d')} to {saturday_after.strftime('%Y-%m-%d')}"
+
+def calculate_date(relative_date: str) -> str:
+    """Calculates an absolute date from a relative date string.
+    
+    Args:
+        relative_date: The relative date string (e.g., "tomorrow", "in 3 days").
+    
+    Returns:
+        The absolute date in YYYY-MM-DD format.
+    """
+    today = datetime.now()
+    if "tomorrow" in relative_date.lower():
+        return (today + timedelta(days=1)).strftime("%Y-%m-%d")
+    elif "in" in relative_date.lower() and "days" in relative_date.lower():
+        try:
+            days = int(relative_date.split("in")[1].split("days")[0].strip())
+            return (today + timedelta(days=days)).strftime("%Y-%m-%d")
+        except ValueError:
+            return "Invalid date format"
+    else:
+        return "Unsupported relative date"
