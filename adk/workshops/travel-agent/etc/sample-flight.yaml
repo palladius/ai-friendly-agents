@@ -1,0 +1,18 @@
+# Trip:
+from:
+- l: Zurich
+  date: 2025-11-17
+to:
+- l: Milan
+  date: 2025-11-20
+passengers:
+- Name: Riccardo Corleone
+Type: work
+Budget: 1000 USD
+Preferences:
+  Airline: Swiss Airlines
+  SeatClass: Economy
+Flexibility:
+- Need to be there before Tuesday at 9am
+- Need to return AFTER Thursday 3pm
+- can use Train or airplane.

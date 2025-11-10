@@ -27,6 +27,6 @@ The final output will be a HTML/PDF and a version number (eg `Zurich___Mykonos_Y
 
 ## Config
 
-A config file is under `etc/sample-family.yaml`. Note that this info can be overridden.
-For example, a family of four could have a trip organized for one of them plus a fifth,
-or some budget can be overridden for work, and so on.
+A few config files are under etc/:
+* `etc/sample-family.yaml`: A sample family configuration, where you can specify people habits, and more or less static characteristics (DOB, Passport, Name, ..) . Note that this info can be overridden. For example, a family of four could have a trip organized for one of them plus a fifth, or some budget can be overridden for work, and so on.
+* `etc/sample-flight.yaml`: A sample flight config, with dates, locations, budget, and travel type (work/personal).

@@ -20,17 +20,24 @@ This document outlines the development plan for the Workshop Travel Agent.
 
 ## Milestone 2: The Core Engine (v0.2.0)
 
-- [ ] **Implement `Concierge` Agent (`Androsthenes`):**
-    - [ ] Implement the logic for the `Concierge` agent to interact with the user and gather travel details.
-    - [ ] The `Concierge` agent should be able to handle default values as described in `THE_APP.md`.
-- [ ] **Implement `Flight` Agent (`Fabio Volo`):**
-    - [ ] Create the `Flight` agent.
-    - [ ] Implement the logic to search for flights. For now, this can be a mock implementation that returns static data.
-- [ ] **Implement `Hotel` Agent (`Barabba`):**
-    - [ ] Create the `Hotel` agent.
-    - [ ] Implement the logic to search for hotels. For now, this can be a mock implementation that returns static data.
-- [ ] **Agent Interaction:**
-    - [ ] The `Concierge` agent should be able to call the `Flight` and `Hotel` agents.
+- [x] **Implement `Concierge` Agent (`Androsthenes`):**
+    - [x] Implement the logic for the `Concierge` agent to interact with the user and gather travel details.
+    - [x] The `Concierge` agent can now use the `now()` tool to get the current date and time.
+    - [x] The agent can read a family configuration file to personalize its interaction.
+    - [x] The application accepts a `-f`/`--file` command-line argument to specify the configuration file.
+    - [x] The `Concierge` agent should be able to handle default values as described in `THE_APP.md`.
+    - [x] The `Concierge` agent now greets the first person in the family list by name.
+- [x] **Implement `Flight` Agent (`Fabio Volo`):**
+    - [x] Create the `Flight` agent.
+    - [x] Implement the logic to search for flights. For now, this can be a mock implementation that returns static data.
+- [x] **Implement `Hotel` Agent (`Barabba`):**
+    - [x] Create the `Hotel` agent.
+    - [x] Implement the logic to search for hotels. For now, this can be a mock implementation that returns static data.
+- [x] **Agent Interaction:**
+    - [x] The `Concierge` agent should be able to call the `Flight` and `Hotel` agents.
+- [x] **Logging:**
+    - [x] Implement logging to a file.
+    - [x] Add a `-l`/`--log` command-line argument to specify the log file.
 
 ## Milestone 3: Integration and Refinement (v0.3.0)
 

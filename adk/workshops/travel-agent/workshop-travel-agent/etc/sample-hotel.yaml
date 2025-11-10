@@ -1,0 +1,25 @@
+- destination: "Sal, Capo Verde"
+  hotels:
+    - name: "Hilton Sal"
+      rating: 4.5
+      price_per_night: "150 EUR"
+      amenities:
+        - "Pool"
+        - "Beachfront"
+        - "Restaurant"
+    - name: "Melia Dunas Beach Resort & Spa"
+      rating: 4.0
+      price_per_night: "120 EUR"
+      amenities:
+        - "Pool"
+        - "Spa"
+        - "All-inclusive"
+- destination: "Zanzibar, Tanzania"
+  hotels:
+    - name: "The Residence Zanzibar"
+      rating: 5.0
+      price_per_night: "300 EUR"
+      amenities:
+        - "Private pool"
+        - "Beachfront"
+        - "Butler service"

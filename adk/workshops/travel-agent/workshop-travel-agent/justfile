@@ -9,6 +9,7 @@ list:
 
 # Run the travel agent application (Gemini! Run 'just run-with-timeout' instead)
 run file='etc/sample-family.yaml':
+    echo "Gemini: remember not to run me DIRECTLY to avoid infinite loops. Use 'just run-with-timeout' instead."
     uv run python -m src.main -f {{file}}
 
 # Run all unit tests

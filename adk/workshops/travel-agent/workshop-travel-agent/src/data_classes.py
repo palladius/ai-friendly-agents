@@ -45,3 +45,31 @@ class Family:
     Address: Address
     TravelProps: TravelProps
     Budget: Budget
+
+@dataclass
+class Flight:
+    airline: str
+    flight_number: str
+    departure_airport: str
+    arrival_airport: str
+    departure_time: str
+    arrival_time: str
+    duration: str
+    price: str
+
+@dataclass
+class FlightData:
+    destination: str
+    flights: List[Flight]
+
+@dataclass
+class Hotel:
+    name: str
+    rating: float
+    price_per_night: str
+    amenities: List[str]
+
+@dataclass
+class HotelData:
+    destination: str
+    hotels: List[Hotel]

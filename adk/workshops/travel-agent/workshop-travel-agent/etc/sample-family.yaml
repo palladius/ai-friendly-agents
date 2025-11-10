@@ -1,0 +1,67 @@
+# Assume agent user to be the first.
+Family:
+- Name: Riccardo
+  Surname: Corleone
+  Role: Father
+  DOB: 1983-05-15
+  PassPort: Y12345678
+  Nationality: Italian
+  Interests:
+    - Traveling
+    - Cooking
+    - Photography
+    - Road Cycling
+- Name: Caterina
+  Surname: Corleone
+  Nationality: British
+  Role: Mother
+  DOB: 1985-08-22
+  PassPort: Z87654321
+  Interests:
+    - Reading
+    - Yoga
+    - Gardening
+- Name: Luca
+  Surname: Corleone
+  Role: Son
+  DOB: 2017-11-05
+  PassPort: X11223344
+  Interests:
+    - Video Games
+    - Soccer
+    - Science Fiction
+- Name: Sofia
+  Surname: Corleone
+  Role: Daughter
+  DOB: 2013-03-18
+  PassPort: W44332211
+  Interests:
+    - Dance
+    - Drawing
+    - Animals
+Address:
+  Street: 123 Maple Street
+  City: Springfield
+  Country: USA
+  ZipCode: 12345
+TravelProps:
+  TravellerType: "chill out by the pool"
+  PreferredAirlines:
+    - Delta
+    - British Airways
+  HotelPreferences:
+    - Family-friendly
+    - Near city center
+  DietaryRestrictions:
+    - Vegetarian (Anna)
+    - Nut Allergy (Sofia)
+  SpecialNeeds:
+    - Horseriding for mum
+    - Michelin star restaurant for dad
+    - Lots of adventure
+Budget:
+  TotalBudget: 5000 USD
+  BudgetFlexibility: "ballpark"
+  Days: 7
+  MealPerPerson: 30 USD
+  AccommodationPerNight: 150 USD

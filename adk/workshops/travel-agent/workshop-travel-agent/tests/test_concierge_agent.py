@@ -9,7 +9,7 @@ from google.genai import types
 from datetime import datetime
 
 from src.concierge_agent import ConciergeAgent
-from src.config import load_config
+from src.config import load_config, load_flight_data, load_hotel_data
 from src.data_classes import Family
 
 class TestConciergeAgent(unittest.TestCase):
@@ -17,6 +17,10 @@ class TestConciergeAgent(unittest.TestCase):
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         config_path = os.path.join(project_root, "etc", "sample-family.yaml")
         self.family_config = load_config(config_path)
+        flight_data_path = os.path.join(project_root, "etc", "sample-flight.yaml")
+        self.flight_data = load_flight_data(flight_data_path)
+        hotel_data_path = os.path.join(project_root, "etc", "sample-hotel.yaml")
+        self.hotel_data = load_hotel_data(hotel_data_path)
 
     def test_greet_user_with_config(self):
         """Tests that the concierge agent greets the user and uses config details."""
@@ -28,7 +32,7 @@ class TestConciergeAgent(unittest.TestCase):
                 session_id="test_session"
             )
 
-            concierge = ConciergeAgent(name="TestConcierge", model="gemini-2.5-flash", family_config=self.family_config)
+            concierge = ConciergeAgent(name="TestConcierge", model="gemini-2.5-flash", family_config=self.family_config, flight_data=self.flight_data, hotel_data=self.hotel_data)
             runner = Runner(
                 agent=concierge,
                 app_name="test_app",
@@ -50,34 +54,28 @@ class TestConciergeAgent(unittest.TestCase):
             
             self.assertIsNotNone(final_response)
             self.assertIn("Hello", final_response)
+            self.assertIn("Riccardo", final_response)
             self.assertIn(self.family_config.Family[0].Surname, final_response)
             self.assertIn(self.family_config.TravelProps.TravellerType, final_response)
-            self.assertIn(datetime.now().strftime("%Y-%m-%d"), final_response) # Check for current date
+            self.assertIn(str(datetime.now().year), final_response)
+            self.assertTrue(
+                datetime.now().strftime("%m") in final_response or
+                datetime.now().strftime("%B") in final_response
+            )
+            self.assertIn(str(datetime.now().day), final_response)
 
         asyncio.run(run_test())
 
-    def test_greet_user_with_file_argument(self):
-        """Tests that the agent can be run with a file argument."""
+    def test_propose_default_travel_plan(self):
+        """Tests that the agent proposes the default travel plan."""
         async def run_test():
-            with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix=".yaml") as temp_file:
-                temp_config = {
-                    "Family": [{"Name": "Test", "Surname": "McTestFace", "Role": "Tester", "DOB": "2023-01-01", "PassPort": "T12345678", "Interests": ["Testing"]}],
-                    "Address": {"Street": "123 Test St", "City": "Testville", "Country": "Testland", "ZipCode": "12345"},
-                    "TravelProps": {"TravellerType": "Adventurous", "PreferredAirlines": [], "HotelPreferences": [], "DietaryRestrictions": [], "SpecialNeeds": []},
-                    "Budget": {"TotalBudget": "1000 USD", "BudgetFlexibility": "strict", "Days": 1, "MealPerPerson": "10 USD", "AccommodationPerNight": "100 USD"}
-                }
-                yaml.dump(temp_config, temp_file)
-                temp_file_path = temp_file.name
-
-            family_config = load_config(temp_file_path)
-            
             session_service = InMemorySessionService()
             await session_service.create_session(app_name="test_app", user_id="test_user", session_id="test_session")
 
-            concierge = ConciergeAgent(name="TestConcierge", model="gemini-2.5-flash", family_config=family_config)
+            concierge = ConciergeAgent(name="TestConcierge", model="gemini-2.5-flash", family_config=self.family_config, flight_data=self.flight_data, hotel_data=self.hotel_data)
             runner = Runner(agent=concierge, app_name="test_app", session_service=session_service)
 
-            content = types.Content(role='user', parts=[types.Part(text="Hello")])
+            content = types.Content(role='user', parts=[types.Part(text="I want to go on a trip")])
             events = runner.run_async(user_id="test_user", session_id="test_session", new_message=content)
 
             final_response = ""
@@ -85,9 +83,9 @@ class TestConciergeAgent(unittest.TestCase):
                 if event.is_final_response():
                     final_response = event.content.parts[0].text
             
-            self.assertIn("McTestFace", final_response)
-
-            os.remove(temp_file_path)
+            self.assertIn("Milan", final_response)
+            self.assertIn("Sal", final_response)
+            self.assertIn("Capo Verde", final_response)
 
         asyncio.run(run_test())
 

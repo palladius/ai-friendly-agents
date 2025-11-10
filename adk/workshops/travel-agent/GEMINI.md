@@ -22,3 +22,8 @@ Since this is a complex task, always start with a `PLAN.md` which contains Check
 For instance, for v1.0 we can skip Budget and Travel Agent, and just do Flights and configuration from `etc/my-family.yaml`.
 Validate through user (me) and after confirmation you can go on and update.
 Use a `CHANGELOG.md` and version properly the app (maybe through uvx TOML versioning) and have small frequent git commits.
+
+### 🚨 IMPORTANT INTERACTION RULE 🚨
+
+- **I must NEVER run interactive or blocking commands myself** (e.g., `just run`).
+- My role is to inform you which command to run. You, the user, will then execute it manually in your terminal.
