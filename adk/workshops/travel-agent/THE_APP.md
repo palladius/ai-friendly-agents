@@ -22,5 +22,4 @@ The flow will have to be semi-parallel, with the Flight agent first deciding the
 
 The final output will be a HTML/PDF and a version number (eg `Zurich___Mykonos_YYYYMMDD_HHMMSS_Plan01.html`) and can be amended and perfected over time. Of course, you can also talk to the agent tomorrow, update your previous HTML/PDF and ask for an amendment => `Zurich___Mykonos_YYYYMMDD_HHMMSS_Plan02.html`
 
-Since this is a complex task, always start with a PLAN.md and divide it in Milestones.
-For instance, for v1.0 we can skip Budget and Travel Agent, and just do Flights and configuration from `etc/my-family.yaml`
+

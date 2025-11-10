@@ -11,7 +11,14 @@ We'll use a `.env` for ENV variables (such as `GEMINI_API_KEY`) which you CANNOT
 
 Use python + `uvx` to minimize virtualenv issues.
 
+Write the code under `workshop-travel-agent/`
+
 ## Our interaction
 
 Make sure to read ADK documentation under `travel-agent/rag/adk-python/llms-full.txt`
 and use its context to build ADK.
+
+Since this is a complex task, always start with a `PLAN.md` which contains CheckBoxes and divide it in Milestones.
+For instance, for v1.0 we can skip Budget and Travel Agent, and just do Flights and configuration from `etc/my-family.yaml`.
+Validate through user (me) and after confirmation you can go on and update.
+Use a `CHANGELOG.md` and version properly the app (maybe through uvx TOML versioning) and have small frequent git commits.
