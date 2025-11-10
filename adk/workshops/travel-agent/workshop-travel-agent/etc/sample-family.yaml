@@ -45,6 +45,7 @@ Address:
   Country: USA
   ZipCode: 12345
 TravelProps:
+  TravellerType: "chill out by the pool"
   PreferredAirlines:
     - Delta
     - British Airways
@@ -60,6 +61,7 @@ TravelProps:
     - Lots of adventure
 Budget:
   TotalBudget: 5000 USD
+  BudgetFlexibility: "ballpark"
   Days: 7
   MealPerPerson: 30 USD
   AccommodationPerNight: 150 USD

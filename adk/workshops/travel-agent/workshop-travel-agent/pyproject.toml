@@ -1,0 +1,19 @@
+[project]
+name = "workshop-travel-agent"
+version = "0.1.0"
+description = "A multi-agent travel assistant using ADK."
+authors = [
+    {name = "Riccardo Carlesso", email = "ricc@google.com"},
+]
+dependencies = [
+    "pyyaml",
+    "google-adk",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+]

@@ -1,0 +1,16 @@
+# Justfile for the Workshop Travel Agent
+
+# Default command
+default: list
+
+# List available commands
+list:
+    @just -l
+
+# Run the travel agent application
+run:
+    uvx run python -m src.main
+
+# Run all unit tests
+test:
+    uvx run python -m unittest discover -s tests -v
