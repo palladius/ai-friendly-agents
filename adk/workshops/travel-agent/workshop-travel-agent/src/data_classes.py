@@ -1,5 +1,16 @@
 from dataclasses import dataclass
 from typing import List, Optional
+from pydantic import BaseModel
+from datetime import date
+
+class HotelSearchQuery(BaseModel):
+    location: str
+    checkin: Optional[date] = None
+    checkout: Optional[date] = None
+    adults: Optional[int] = 1
+    children: Optional[int] = 0
+    infants: Optional[int] = 0
+    maxPrice: Optional[int] = None
 
 @dataclass
 class Person:

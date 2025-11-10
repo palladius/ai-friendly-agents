@@ -1,16 +1,16 @@
 import logging
 from google.adk.agents import LlmAgent
 from src.tools import now, get_default_travel_dates
-from src.data_classes import Family, FlightData, HotelData
+from src.data_classes import Family, HotelData
 from src.flight_agent import FlightAgent
 from src.hotel_agent import HotelAgent
 from typing import List
+from pydantic import PrivateAttr
 
 class ConciergeAgent(LlmAgent):
-    def __init__(self, name: str, model: str, family_config: Family, flight_data: List[FlightData], hotel_data: List[HotelData]):
-        logging.info(f"Initializing ConciergeAgent with name: {name}")
-        flight_agent = FlightAgent(name="Fabio_Volo", model=model, flight_data=flight_data)
-        hotel_agent = HotelAgent(name="Barabba", model=model, hotel_data=hotel_data)
+    _logger: logging.Logger = PrivateAttr()
+
+    def __init__(self, name: str, model: str, family_config: Family, hotel_data: List[HotelData], log_file: str = None):
         super().__init__(
             name=name,
             model=model,
@@ -29,8 +29,20 @@ class ConciergeAgent(LlmAgent):
             """,
             description="A concierge agent that greets users, proposes a default travel plan, and delegates flight and hotel queries.",
             tools=[now, get_default_travel_dates],
-            sub_agents=[flight_agent, hotel_agent]
+            sub_agents=[
+                FlightAgent(name="Fabio_Volo", model=model),
+                HotelAgent(name="Barabba", model=model, hotel_data=hotel_data)
+            ]
         )
+        self._logger = logging.getLogger(self.name)
+        if log_file is None:
+            log_file = f"log/{self.name}.log"
+        handler = logging.FileHandler(log_file, mode="w")
+        formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+        handler.setFormatter(formatter)
+        self._logger.addHandler(handler)
+        self._logger.setLevel(logging.INFO)
+        self._logger.info(f"Initializing ConciergeAgent with name: {self.name}")
 
 # Example usage (for testing purposes, not part of the agent definition itself)
 if __name__ == "__main__":

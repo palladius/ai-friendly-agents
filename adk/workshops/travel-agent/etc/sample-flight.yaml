@@ -1,9 +1,9 @@
 # Trip:
 from:
-- l: Zurich
+- l: ZRH # Zurich
   date: 2025-11-17
 to:
-- l: Milan
+- l: MXP # Milan Malpensa
   date: 2025-11-20
 passengers:
 - Name: Riccardo Corleone

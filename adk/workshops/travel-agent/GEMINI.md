@@ -26,4 +26,5 @@ Use a `CHANGELOG.md` and version properly the app (maybe through uvx TOML versio
 ### 🚨 IMPORTANT INTERACTION RULE 🚨
 
 - **I must NEVER run interactive or blocking commands myself** (e.g., `just run`).
+- It's ok to call a blocking command, particularly in the first iterations, prepending a `timeout 10` to the command.
 - My role is to inform you which command to run. You, the user, will then execute it manually in your terminal.

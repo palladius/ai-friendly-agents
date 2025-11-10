@@ -36,8 +36,7 @@ This document outlines the development plan for the Workshop Travel Agent.
 - [x] **Agent Interaction:**
     - [x] The `Concierge` agent should be able to call the `Flight` and `Hotel` agents.
 - [x] **Logging:**
-    - [x] Implement logging to a file.
-    - [x] Add a `-l`/`--log` command-line argument to specify the log file.
+    - [x] Implement agent-specific logging to a file (e.g., `log/agent_name.log`).
 
 ## Milestone 3: Integration and Refinement (v0.3.0)
 

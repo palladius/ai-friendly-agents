@@ -1,0 +1,20 @@
+# Hotel Booking Request
+date_from: 2025-11-17
+date_to: 2025-11-20
+guests:
+- Name: Riccardo Corleone
+  Type: Adult
+- Name: Lucilla Corleone
+  Type: Adult
+Type: work
+BudgetPerNight: 200 USD
+Preferences:
+  Breakfast: Included
+  RoomType: Double
+  Amenities:
+    - Pool
+    - Free WiFi
+    - Gym
+Flexibility:
+- Need 24/7 concierge
+- Wants to be close to public transport

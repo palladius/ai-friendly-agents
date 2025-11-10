@@ -6,9 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.6.0] - 2025-11-10
-### Added
-- Implemented logging to a file.
-- Added a `-l`/`--log` command-line argument to specify the log file.
+### Changed
+- Refactored logging to be agent-specific. Each agent now creates its own log file in the `log/` directory.
 
 ## [0.5.0] - 2025-11-10
 ### Added

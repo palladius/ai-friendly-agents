@@ -16,6 +16,10 @@ run file='etc/sample-family.yaml':
 test:
     PYTHONPATH=. uv run python -m unittest discover -s tests -v
 
+# Run the flight agent in isolation
+run-flight-agent query='etc/sample-flight-query.yaml':
+    uv run python -m src.run_flight_agent --query {{query}}
+
 # To be used by Gemini to avoid infinite loops
 run-with-timeout:
     timeout 10 just run

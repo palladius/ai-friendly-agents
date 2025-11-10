@@ -8,6 +8,8 @@ authors = [
 dependencies = [
     "pyyaml",
     "google-adk",
+    "pydantic",
+    "httpx",
 ]
 requires-python = ">=3.11"
 readme = "README.md"

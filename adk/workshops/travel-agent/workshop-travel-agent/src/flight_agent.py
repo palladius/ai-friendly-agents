@@ -1,26 +1,29 @@
 import logging
 from google.adk.agents import LlmAgent
-from src.data_classes import FlightData
-from typing import List
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import SseConnectionParams
+from pydantic import PrivateAttr
 
 class FlightAgent(LlmAgent):
-    def __init__(self, name: str, model: str, flight_data: List[FlightData]):
-        logging.info(f"Initializing FlightAgent with name: {name}")
+    _logger: logging.Logger = PrivateAttr()
+
+    def __init__(self, name: str, model: str, mcp_url: str = "http://localhost:8000", log_file: str = None):
+        toolset = MCPToolset(
+            connection_params=SseConnectionParams(url=mcp_url)
+        )
         super().__init__(
             name=name,
             model=model,
-            instruction="You are a flight agent. Your main task is to find flights based on a given destination.",
-            description="A flight agent that finds flights from a list of available flights.",
-            tools=[self.search_flights]
+            instruction="You are a flight agent. Your main task is to find flights by using the tools provided by the flight search MCP.",
+            description="A flight agent that finds flights by calling a flight search MCP.",
+            tools=[toolset]
         )
-        self._flight_data = flight_data
-
-    def search_flights(self, destination: str) -> List[dict]:
-        """Searches for flights to a given destination."""
-        logging.info(f"Searching for flights to: {destination}")
-        for data in self._flight_data:
-            if data.destination.lower() == destination.lower():
-                logging.info(f"Found flights to: {destination}")
-                return [flight.__dict__ for flight in data.flights]
-        logging.info(f"No flights found to: {destination}")
-        return []
+        self._logger = logging.getLogger(self.name)
+        if log_file is None:
+            log_file = f"log/{self.name}.log"
+        handler = logging.FileHandler(log_file, mode="w")
+        formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+        handler.setFormatter(formatter)
+        self._logger.addHandler(handler)
+        self._logger.setLevel(logging.INFO)
+        self._logger.info(f"Initializing FlightAgent with name: {self.name}")

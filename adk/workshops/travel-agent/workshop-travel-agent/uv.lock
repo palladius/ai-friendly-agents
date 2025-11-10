@@ -2224,6 +2224,8 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "google-adk" },
+    { name = "httpx" },
+    { name = "pydantic" },
     { name = "pyyaml" },
 ]
 
@@ -2235,6 +2237,8 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "google-adk" },
+    { name = "httpx" },
+    { name = "pydantic" },
     { name = "pyyaml" },
 ]
 
