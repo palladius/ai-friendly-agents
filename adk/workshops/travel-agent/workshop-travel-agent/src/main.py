@@ -1,12 +1,26 @@
 import asyncio
+import argparse
+import os
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types
 
 from src.concierge_agent import ConciergeAgent
+from src.config import load_config
 
 async def main():
     """Main function to run the concierge agent."""
+    parser = argparse.ArgumentParser(description="Run the Concierge Agent.")
+    parser.add_argument(
+        "-f", "--file",
+        default="etc/sample-family.yaml",
+        help="Path to the family configuration file."
+    )
+    args = parser.parse_args()
+
+    config_path = os.path.abspath(args.file)
+    family_config = load_config(config_path)
+
     session_service = InMemorySessionService()
     session = await session_service.create_session(
         app_name="travel_agent",
@@ -14,7 +28,7 @@ async def main():
         session_id="session456"
     )
 
-    concierge = ConciergeAgent(name="Androsthenes", model="gemini-2.5-flash")
+    concierge = ConciergeAgent(name="Androsthenes", model="gemini-2.5-flash", family_config=family_config)
     runner = Runner(
         agent=concierge,
         app_name="travel_agent",

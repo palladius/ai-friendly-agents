@@ -7,10 +7,14 @@ default: list
 list:
     @just -l
 
-# Run the travel agent application
-run:
-    uvx run python -m src.main
+# Run the travel agent application (Gemini! Run 'just run-with-timeout' instead)
+run file='etc/sample-family.yaml':
+    uv run python -m src.main -f {{file}}
 
 # Run all unit tests
 test:
-    uvx run python -m unittest discover -s tests -v
+    PYTHONPATH=. uv run python -m unittest discover -s tests -v
+
+# To be used by Gemini to avoid infinite loops
+run-with-timeout:
+    timeout 10 just run
