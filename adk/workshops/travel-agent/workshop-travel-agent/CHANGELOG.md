@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2025-11-10
+### Changed
+- Prioritized `HotelAgent` MCP integration.
+- Re-created `etc/sample-hotel-query.yaml` and `src/run_hotel_agent.py` for isolated testing.
+- Re-added `run-hotel-agent` recipe to `justfile`.
+- Refactored `HotelAgent` to use `MCPToolset` with `StdioConnectionParams` for Airbnb MCP.
+
 ## [0.6.0] - 2025-11-10
 ### Changed
 - Refactored logging to be agent-specific. Each agent now creates its own log file in the `log/` directory.

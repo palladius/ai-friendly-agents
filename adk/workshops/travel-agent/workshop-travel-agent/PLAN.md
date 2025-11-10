@@ -40,9 +40,20 @@ This document outlines the development plan for the Workshop Travel Agent.
 
 ## Milestone 3: Integration and Refinement (v0.3.0)
 
-- [ ] **Integrate MCP Servers:**
-    - [ ] Integrate the `Flight` agent with the Google Flights MCP server.
-    - [ ] Integrate the `Hotel` agent with the AirBNB MCP server.
+- [ ] **Integrate Hotel Agent with Airbnb MCP:**
+    - [x] Define `HotelSearchQuery` Pydantic model.
+    - [x] Refactor `HotelAgent` to use `MCPToolset` with `StdioConnectionParams` for Airbnb MCP.
+    - [x] Create `etc/sample-hotel-query.yaml`.
+    - [x] Create `src/run_hotel_agent.py` for isolated testing.
+    - [x] Add `run-hotel-agent` recipe to `justfile`.
+    - [ ] Update `ConciergeAgent` to use the new `HotelAgent`.
+    - [ ] Update `main.py` to remove mock hotel data.
+    - [ ] Test `HotelAgent` in isolation using `just run-hotel-agent`.
+- [ ] **Integrate Flight Agent with Google Flights MCP:**
+    - [ ] Refactor `Flight` agent with Google Flights MCP server.
+    - [ ] Update `ConciergeAgent` to use the new `FlightAgent`.
+    - [ ] Update `main.py` to remove mock flight data.
+    - [ ] Test `FlightAgent` in isolation.
 - [ ] **Testing:**
     - [ ] Write unit tests for the configuration loader.
     - [ ] Write unit tests for the agents (using mocks for external services).

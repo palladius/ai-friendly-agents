@@ -1,7 +1,7 @@
 import logging
 from google.adk.agents import LlmAgent
 from src.tools import now, get_default_travel_dates
-from src.data_classes import Family, HotelData
+from src.data_classes import Family
 from src.flight_agent import FlightAgent
 from src.hotel_agent import HotelAgent
 from typing import List
@@ -10,17 +10,19 @@ from pydantic import PrivateAttr
 class ConciergeAgent(LlmAgent):
     _logger: logging.Logger = PrivateAttr()
 
-    def __init__(self, name: str, model: str, family_config: Family, hotel_data: List[HotelData], log_file: str = None):
+    def __init__(self, name: str, model: str, family_config: Family, log_file: str = None):
         super().__init__(
             name=name,
             model=model,
-            instruction=f"""Welcome! You are a helpful concierge agent. Your main task is to greet the user and confirm their travel details.
+            instruction=f"""Welcome! You are a helpful concierge agent.
+            Your main task is to greet the user and assist with their travel plans.
+            
+            You have a `now()` tool that tells you the current date and time.
+            IMPORTANT RULE: When the user mentions a relative date like 'today', 'tomorrow', or 'next week', you MUST use the `now()` tool to determine the current date and calculate the exact date before calling any other agent's tools. Do not ask the user for the date.
+            
             Start by saluting the first person in the family list, {family_config.Family[0].Name}.
-            Use the `now()` tool to get the current date and time and include it in your greeting.
             You are assisting the {family_config.Family[0].Surname} family. The family consists of:
             {', '.join([f'{p.Name} ({p.Role})' for p in family_config.Family])}.
-            Their preferred travel type is '{family_config.TravelProps.TravellerType}'.
-            Their budget flexibility is '{family_config.Budget.BudgetFlexibility}'.
             
             Propose a default travel plan for 2 adults, from Milan to Sal, Capo Verde, using the `get_default_travel_dates()` tool to get the dates.
             
@@ -30,8 +32,8 @@ class ConciergeAgent(LlmAgent):
             description="A concierge agent that greets users, proposes a default travel plan, and delegates flight and hotel queries.",
             tools=[now, get_default_travel_dates],
             sub_agents=[
-                FlightAgent(name="Fabio_Volo", model=model),
-                HotelAgent(name="Barabba", model=model, hotel_data=hotel_data)
+                FlightAgent(name="Fabio_Volo", model=model, log_file="log/flight_agent.log"),
+                HotelAgent(name="Barabba", model=model, log_file="log/hotel_agent.log")
             ]
         )
         self._logger = logging.getLogger(self.name)
