@@ -1,0 +1,30 @@
+# Justfile for the Workshop Travel Agent
+
+# Default command
+default: list
+
+# List available commands
+list:
+    @just -l
+
+# Run the travel agent application (Gemini! Run 'just run-with-timeout' instead)
+run file='etc/sample-family.yaml' query='':
+    echo "Gemini: remember not to run me DIRECTLY to avoid infinite loops. Use 'just run-with-timeout' instead."
+    unset GEMINI_API_KEY; uv run --active python -m src.main -f "{{file}}" -q "{{query}}"
+
+# Run concierge testing ONLY the hotel agent
+run-concierge-testing-hotel-agent:
+    unset GEMINI_API_KEY; uv run --active python -m src.main  -f 'etc/sample-family.yaml' -q "i want to book a hotel in Milan for tomorrow, 1 night, alone." 2>&1 | \
+        tee concierge_hotel_agent_output.txt
+
+# Run all unit tests
+test:
+    timeout 60 bash -c 'PYTHONPATH=. uv run python -m unittest discover -s tests -v'
+
+# Run the hotel agent in isolation
+run-hotel-agent query='etc/sample-hotel-query.yaml':
+    uv run python -m src.run_hotel_agent --query ""{{query}}""
+
+# To be used by Gemini to avoid infinite loops
+run-with-timeout:
+    timeout 10 just run
