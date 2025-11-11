@@ -1,0 +1,27 @@
+After talkiing to my friend Maurizio Ipsale, this is my overall plan.
+
+1. Take some simple things from my `complex-travel-agent/` and downport them to my `simple-travel-agent/`.
+
+This workshop should have the following steps:
+
+1. **Basic working copy**. Copy basic agent functionalities for a possibly in YAML format, which is simple and beautiful.
+2. **Add now() tool**. Show it fails at solving a simple thing like: "Book a hotel in Milan for today and tomorrow", since it doesnt know what day is it today. => suggest people to create a tool.
+   1. This might be commented code, with non-implemented function, or funciton implemented as `{status: success, value: YOUR_CODE_HERE .. }`
+3. **Add GoogleSearch() tool**. Now chat with ADK and ask it to find a hotel. Again -> fake hotels, .. no success.
+   1. Add the *Google Search* tool.
+   2. Now test it again -> it should work. Yay!
+4. **Enter MCP**. Problem: Now we should ask to find hotels with certain aspects, like price, area, ..
+   1. It should NOT work great.
+   2. Introduce MCP client to Airbnb.
+5. **Milestone 1: it works!**. Test end2end. This should be the end of it.
+   1. People should be able to test it a bit.
+
+
+
+## Additional steps
+
+These can be done in order, or not, based on people preferences:
+
+1. [HARd] Add memory: memorize user name, surname, passport number, preferences.
+2. [MEDIUM] Deploy to Cloud Run.
+3. [Easy] Add file writing tools (copy idea from `complex-travel-agent/`)
