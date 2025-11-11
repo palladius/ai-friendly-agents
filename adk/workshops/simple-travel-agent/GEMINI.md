@@ -1,0 +1,31 @@
+**Note**: Once the workshop is done, we need to re-write this GEMINI.md!!!
+
+## Workshop creation
+
+* Whenever possible, inherit or learn from the more-complex, mostly-working code in `../complex-travel-agent/`.
+* For ease of TESTING, let's ensure we have code in python which we can then test manually.
+* Let's ensure we have a folder "sample_code/" with sample code:
+  * python code for the agent
+  * a library subfolder for tools and "less visible code"
+  * a test folder to test python. Tests should return fast, lets concentrate on Unit tests for now.
+  * a `Justfile` with some sample invocations: `just test`, `just list`, ..
+  * Some commented code for the next step. Example: a perfectly defined Tool function,
+    commented out,
+  * A `pyproject.toml` for `uv`. We use `uv` and `uvx` to execute python with automatic library installation which doesn't depend on sourcing `.env`. This is because
+* To ensure ease between student code and solution, we probably need to mirror the code into a `.solutions/` secret folder with FULLY working code. This way we can easily go back and forth between the REAL solution and the half-baked solution we give to students.
+
+## Code creation
+
+Let's ensure Gemini CLI is able to read ADK code
+
+* Download Google ADK locally. To do this, execute `./download-adk.sh`.
+* Read Google ADK python library under `./rag/adk-python/`.
+* Before writing code for ADK, make sure you at least read docs in `rag/adk-python/llms-full.txt` but be prepared to fully leverage the codebase for complex tasks like adding MCP client or tooling or deploying to Cloud Run / Vertex AI.
+* If you can't read the folder, work with user to add this config to `.gemini/config.json`:
+
+```json
+{ "fileFiltering": {
+    "respectGitIgnore": false
+  }
+}
+```

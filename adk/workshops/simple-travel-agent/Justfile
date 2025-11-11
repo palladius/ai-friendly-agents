@@ -1,0 +1,23 @@
+set shell := ["bash", "-c"]
+
+default: list
+
+# List available commands
+list:
+    @just --list
+
+# Install dependencies
+install:
+    uv sync
+
+# Run Step 1: Basic Agent
+run-step1:
+    uv run adk run steps/step01_basic
+
+# Run Step 2: Agent with a custom tool
+run-step2:
+    uv run adk run steps/step02_tool
+
+# Run Step 3: Agent with Google Search
+run-step3:
+    uv run adk run steps/step03_search
