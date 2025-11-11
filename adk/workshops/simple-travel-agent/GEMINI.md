@@ -29,3 +29,20 @@ Let's ensure Gemini CLI is able to read ADK code
   }
 }
 ```
+* Consider using `git grep` for git checked-in code, such as simple and complex travel agent (Note: this won't work for adk-google, since that is git-ignored).
+
+## testing
+
+Ensure all versions of the workshop are tested.
+For instance:
+
+```bash
+# This wotks
+echo "I'd like to book a hotel in milan for next Tuesday, Im alone and have no budget preference." | uv run adk run steps/step01_basic/
+
+# This is broken
+echo "Same test as above" | uv run adk run steps/step02_tool/
+[...]
+ImportError: Fail to load 'step02_tool' module. cannot import name 'tool' from 'google.adk.tools' (/usr/local/google/home/ricc/git/ai-friendly-agents/adk/workshops/simple-travel-agent/.venv/lib/python3.13/site-packages/google/adk/tools/__init__.py)
+[..]
+```

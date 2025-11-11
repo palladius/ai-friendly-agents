@@ -21,3 +21,7 @@ run-step2:
 # Run Step 3: Agent with Google Search
 run-step3:
     uv run adk run steps/step03_search
+
+# Run Step 4: Agent with Airbnb MCP
+run-step4:
+    uv run adk run steps/step04_mcp
