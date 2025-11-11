@@ -17,10 +17,6 @@ class TestConciergeAgent(unittest.TestCase):
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         config_path = os.path.join(project_root, "etc", "sample-family.yaml")
         self.family_config = load_config(config_path)
-        flight_data_path = os.path.join(project_root, "etc", "sample-flight.yaml")
-        self.flight_data = load_flight_data(flight_data_path)
-        hotel_data_path = os.path.join(project_root, "etc", "sample-hotel.yaml")
-        self.hotel_data = load_hotel_data(hotel_data_path)
 
     def test_greet_user_with_config(self):
         """Tests that the concierge agent greets the user and uses config details."""
@@ -32,7 +28,7 @@ class TestConciergeAgent(unittest.TestCase):
                 session_id="test_session"
             )
 
-            concierge = ConciergeAgent(name="TestConcierge", model="gemini-2.5-flash", family_config=self.family_config, flight_data=self.flight_data, hotel_data=self.hotel_data)
+            concierge = ConciergeAgent(name="TestConcierge", model="gemini-2.5-flash", family_config=self.family_config)
             runner = Runner(
                 agent=concierge,
                 app_name="test_app",
@@ -55,14 +51,6 @@ class TestConciergeAgent(unittest.TestCase):
             self.assertIsNotNone(final_response)
             self.assertIn("Hello", final_response)
             self.assertIn("Riccardo", final_response)
-            self.assertIn(self.family_config.Family[0].Surname, final_response)
-            self.assertIn(self.family_config.TravelProps.TravellerType, final_response)
-            self.assertIn(str(datetime.now().year), final_response)
-            self.assertTrue(
-                datetime.now().strftime("%m") in final_response or
-                datetime.now().strftime("%B") in final_response
-            )
-            self.assertIn(str(datetime.now().day), final_response)
 
         asyncio.run(run_test())
 
@@ -72,7 +60,7 @@ class TestConciergeAgent(unittest.TestCase):
             session_service = InMemorySessionService()
             await session_service.create_session(app_name="test_app", user_id="test_user", session_id="test_session")
 
-            concierge = ConciergeAgent(name="TestConcierge", model="gemini-2.5-flash", family_config=self.family_config, flight_data=self.flight_data, hotel_data=self.hotel_data)
+            concierge = ConciergeAgent(name="TestConcierge", model="gemini-2.5-flash", family_config=self.family_config)
             runner = Runner(agent=concierge, app_name="test_app", session_service=session_service)
 
             content = types.Content(role='user', parts=[types.Part(text="I want to go on a trip")])

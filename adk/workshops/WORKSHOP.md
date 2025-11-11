@@ -63,7 +63,9 @@ This is something that Gemini cLI can do natively, for ADK we need to do it manu
 
 ```markdown
 We want now for the Concierge agent to be able to WRITE to disk.
-We need to have two tools where we can dump a sample
+We need to have two tools where we can dump a sample Gemini reasoning to file, and cute Markdown file!
+Ensure these functions are available to the concierge, but from a Sw Eng perspective, ensure they belong into some
+sort of shared library like `lib/file_tools.py` (or similar!) so they can be easily added to any other agent as needed.
 
 ## `write_plan(plan_name: str, date: date, content: str, plan_id: int=1 )`
 * output dir: `out/travel_plans/`.
@@ -80,6 +82,7 @@ We need to have two tools where we can dump a sample
 
 ## `read_plans(src: "path/to/file_xx.md")`
 * reads file and provides to user. This can be a good way to continue/refine an old plan.
+
 
 ```
 

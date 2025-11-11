@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 def now() -> str:
     """Returns the current date and time in a human-readable format."""

@@ -1,31 +1,60 @@
+# Workshop Travel Agent ✈️🏨🧳
 
-## test agents in isolations
+> **Status:** 🚧 Work In Progress (v0.2.x) 🚧
 
-As of v., this works:
+Welcome to the **Workshop Travel Agent**, a multi-agent AI concierge built with the [Google Agent Development Kit (ADK)](https://github.com/google/adk-python). This application uses a team of specialized AI agents to help you plan your perfect trip.
+
+## 🤖 Meet the Team
+
+*   🎩 **Androsthenes (Concierge):** Your primary contact and trip manager. He orchestrates the entire planning process, understands your family's preferences, and ensures a smooth experience by coordinating the specialized agents below.
+    *   ✈️ **Fabio Volo (Flights):** The flight specialist. He finds the best routes and deals for your journey.
+    *   🛏️ **Barabba (Hotels):** The accommodation expert. He searches for hotels and Airbnbs that match your needs.
+    *   🗺️ *Antiochus (Itinerary): [Planned] The destination connoisseur. He crafts personalized daily itineraries and recommends local experiences.*
+    *   💰 *Scrooge (Budget): [Planned] The finance manager. He keeps track of costs to ensure your trip stays within budget.*
+
+## 🚀 Features (Current)
+
+*   **Interactive Concierge:** Chat with Androsthenes to plan your trip.
+*   **Personalization:** Reads family profiles from `etc/sample-family.yaml` to know who's traveling.
+*   **Multi-Agent Coordination:** The Concierge delegates tasks to Flight and Hotel agents.
+*   **Real-time Awareness:** Agents can use tools like `now()` to understand the current context.
+*   **MCP Integration (WIP):** Integrating with Model Context Protocol (MCP) servers for real-world data (e.g., Airbnb for hotels).
+
+## 🛠️ Usage
+
+This project uses `uv` for dependency management and `just` for command execution.
+
+### Quick Start
+
+Run the interactive concierge:
 
 ```bash
-$ just run-concierge-testing-hotel-agent
-Welcome to the Travel Agent! How can I help you today?
-> i want to book a hotel in Milan for tomorrow, 1 night, alone.
-Androsthenes: I couldn't find any hotels for Milan for tomorrow (May 24, 2024) for 1 night. The available listings are for much later dates and for a duration of 5 nights, not 1. Here are a few examples of what is available:
-
-*   **Luxurious and panoramic flat in the heart of Milan**
-    *   Dates: November 23 – 28, 2025
-    *   Rating: 4.95 out of 5 (265 reviews)
-    *   Price: 604 CHF for 5 nights (originally 796 CHF)
-    *   Link: https://www.airbnb.com/rooms/50017840
-
-*   **Isola: comfortable, central, smart**
-    *   Dates: November 24 – 29, 2025
-    *   Rating: 4.96 out of 5 (24 reviews)
-    *   Price: 387 CHF for 5 nights
-    *   Link: https://www.airbnb.com/rooms/1428911395380471147
-
-*   **Tortona Elegant Apartment - Design District**
-    *   Dates: December 14 – 19, 2025
-    *   Rating: 5.0 out of 5 (24 reviews)
-    *   Price: 369 CHF for 5 nights (originally 444 CHF)
-    *   Link: https://www.airbnb.com/rooms/1438354394635462509
-
-Would you like to search for different dates or adjust your search criteria?
+just run
 ```
+
+### Testing
+
+Run the unit test suite:
+
+```bash
+just test
+```
+
+Test the Hotel agent in isolation (using Airbnb MCP):
+
+```bash
+just run-hotel-agent
+```
+
+Run a specific end-to-end test scenario:
+
+```bash
+just run-concierge-testing-hotel-agent
+```
+
+## 📂 Project Structure
+
+*   `src/`: Source code for agents and tools.
+*   `tests/`: Unit and integration tests.
+*   `etc/`: Configuration files (e.g., family profiles).
+*   `PLAN.md`: Development roadmap and milestones.

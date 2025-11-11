@@ -1,24 +1,48 @@
 import unittest
 import asyncio
+from unittest.mock import patch, MagicMock
+from google.adk.runners import Runner
+from google.adk.sessions import InMemorySessionService
+from google.genai import types
 from src.flight_agent import FlightAgent
-from src.config import load_flight_data
 
 class TestFlightAgent(unittest.TestCase):
-    def setUp(self):
-        self.flight_data = load_flight_data("etc/sample-flight.yaml")
-
-    def test_search_flights(self):
+    @patch("src.flight_agent.StdioConnectionParams")
+    def test_search_flights(self, mock_stdio_connection_params):
         """Tests that the flight agent can find flights to a given destination."""
-        agent = FlightAgent(name="TestFlightAgent", model="gemini-2.5-flash", flight_data=self.flight_data)
-        flights = agent.search_flights("Sal, Capo Verde")
-        self.assertEqual(len(flights), 2)
-        self.assertEqual(flights[0]["airline"], "TAP Air Portugal")
+        async def run_test():
+            mock_stdio_connection_params.return_value = MagicMock()
+            session_service = InMemorySessionService()
+            await session_service.create_session(
+                app_name="test_app",
+                user_id="test_user",
+                session_id="test_session"
+            )
 
-    def test_search_flights_not_found(self):
-        """Tests that the flight agent returns an empty list when no flights are found."""
-        agent = FlightAgent(name="TestFlightAgent", model="gemini-2.5-flash", flight_data=self.flight_data)
-        flights = agent.search_flights("Nonexistent Destination")
-        self.assertEqual(len(flights), 0)
+            agent = FlightAgent(name="TestFlightAgent", model="gemini-2.5-flash")
+            runner = Runner(
+                agent=agent,
+                app_name="test_app",
+                session_service=session_service
+            )
+
+            content = types.Content(role='user', parts=[types.Part(text="Find flights to Sal, Capo Verde")])
+            events = runner.run_async(
+                user_id="test_user",
+                session_id="test_session",
+                new_message=content
+            )
+
+            final_response = None
+            async for event in events:
+                if event.is_final_response():
+                    final_response = event.content.parts[0].text
+                    break
+            
+            self.assertIsNotNone(final_response)
+            self.assertIn("TAP Air Portugal", final_response)
+
+        asyncio.run(run_test())
 
 if __name__ == "__main__":
     unittest.main()

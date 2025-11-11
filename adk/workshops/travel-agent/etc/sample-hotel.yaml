@@ -1,6 +1,7 @@
 # Hotel Booking Request
 date_from: 2025-11-17
 date_to: 2025-11-20
+#location: I won't say, let flight/accommodation person decide
 guests:
 - Name: Riccardo Corleone
   Type: Adult
