@@ -191,3 +191,5 @@ tmp/
 #rag/adk-python/
 rag/adk-java
 rag/adk-go/
+*deleteme*/
+adk-python/
