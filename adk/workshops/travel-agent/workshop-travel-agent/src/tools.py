@@ -12,16 +12,17 @@ def get_default_travel_dates() -> str:
     saturday_after = next_saturday + timedelta(weeks=1)
     return f"from {next_saturday.strftime('%Y-%m-%d')} to {saturday_after.strftime('%Y-%m-%d')}"
 
-def calculate_date(relative_date: str) -> str:
-    """Calculates an absolute date from a relative date string.
+def calculate_date(relative_date: str, current_date: str) -> str:
+    """Calculates an absolute date from a relative date string, based on a provided current date.
     
     Args:
         relative_date: The relative date string (e.g., "tomorrow", "in 3 days").
+        current_date: The current date in YYYY-MM-DD HH:MM:SS format.
     
     Returns:
         The absolute date in YYYY-MM-DD format.
     """
-    today = datetime.now()
+    today = datetime.strptime(current_date, "%Y-%m-%d %H:%M:%S")
     if "tomorrow" in relative_date.lower():
         return (today + timedelta(days=1)).strftime("%Y-%m-%d")
     elif "in" in relative_date.lower() and "days" in relative_date.lower():

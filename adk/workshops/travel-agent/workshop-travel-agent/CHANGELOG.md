@@ -52,3 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `google-adk` dependency.
 
 ## [Unreleased]
+
+## [0.1.1] - 2025-11-11
+### Fixed
+- Corrected the date calculation logic by re-introducing the `now` tool to the `ConciergeAgent`, allowing it to correctly resolve relative dates like "tomorrow".
+

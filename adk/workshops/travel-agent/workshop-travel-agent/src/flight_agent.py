@@ -33,7 +33,7 @@ class FlightAgent(LlmAgent):
         self._logger = logging.getLogger(self.name)
         if log_file is None:
             log_file = f"log/{self.name}.log"
-        handler = logging.FileHandler(log_file, mode="w")
+        handler = logging.FileHandler(log_file, mode="a")
         formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
         handler.setFormatter(formatter)
         self._logger.addHandler(handler)

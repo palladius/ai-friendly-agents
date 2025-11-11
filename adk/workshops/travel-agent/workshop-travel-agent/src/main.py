@@ -2,6 +2,7 @@ import asyncio
 import argparse
 import os
 import logging
+import warnings
 from datetime import datetime
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
@@ -15,8 +16,11 @@ async def main():
     # Suppress verbose logging from libraries
     logging.basicConfig(level=logging.WARNING)
     logging.getLogger('google.genai').setLevel(logging.CRITICAL)
+    logging.getLogger('google.genai.types').setLevel(logging.CRITICAL) # Specific for the non-text parts warning
     logging.getLogger('google.adk').setLevel(logging.CRITICAL)
+    logging.getLogger('google.adk.tools.mcp_tool').setLevel(logging.CRITICAL) # Specific for the experimental tool warning
     logging.getLogger('asyncio').setLevel(logging.CRITICAL)
+    warnings.filterwarnings("ignore", category=UserWarning, message=".*EXPERIMENTAL.*BaseAuthenticatedTool.*")
 
     parser = argparse.ArgumentParser(description="Run the Concierge Agent.")
     parser.add_argument(
@@ -87,4 +91,10 @@ async def main():
                         print("Androsthenes: I encountered an issue and cannot provide a response.")
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except RuntimeError as e:
+        if "Attempted to exit cancel scope in a different task than it was entered in" in str(e):
+            logging.getLogger(__name__).debug("Caught expected RuntimeError during shutdown.")
+        else:
+            raise e
