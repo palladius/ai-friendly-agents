@@ -25,15 +25,12 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
    3. On Windows, you can use `chocolatey` or just download the executable from https://nodejs.org/en/download
 
 
-
 ## Step 0: set up your work environment
 
 ```bash
 $ mkdir -p mysolution/
 $ touch mysolution/__init__.py mysolution/agent.py
 ```
-
-
 
 ## Step 1: Basic Agent
 
@@ -51,6 +48,8 @@ As simple as that! This allows ADK to know where your code is: in `agent.py`.
 Create a file named `mysolution/agent.py`:
 
 ```python
+"""This is the solution_1 agent code for the simple travel agent workshop."""
+
 from google.adk.agents import Agent
 
 root_agent = Agent(
@@ -66,6 +65,24 @@ This is true for all the steps. ADK allows you to test your agent in two ways: C
 * **CLI** is best for quick and automated tests
 * **Web** is the best to visually see what's happening, use microphone (!), and troubleshooting.
 
+A good prompt which tests all steps can be this:
+
+```markdown
+## Smart "litmus prompt"
+
+Hi, I'd like to book a hotel in Paris for tomorrow evening alone, one night, in Paris city center.
+Ideally close to Gare de Lyon. Budget: below 200eur per night.
+
+1. Tell me which YYYYMMDD and Day of the Week is tomorrow.
+2. Tell me which hotel do you see for tomorrow (at least 3). I want to see: price, address, some rating (from Google
+   Hotels, Booking or Airbnb). Give me them in TABULAR format. Ideally, hotel name should be linked to some sort of URL
+   of the hotel. Ensure the link is legit (it works and page points to info about the hotel!)
+
+```
+
+This is a smart prompt as it tests time and hotels and will fail differently in steps 1,2,3 and should fully succeed only in step 4.
+You can of course use any prompt you want!
+
 Run it from bash (CLI):
 ```bash
 uv run mysolution/agent.py
@@ -73,15 +90,21 @@ uv run mysolution/agent.py
 
 ![Gemini doesnt even know what day is it](image.png)
 
-Try asking it: *"Book a hotel in Milan for today and tomorrow"*
+Try asking it the "litmus prompt" above.
 
 It will likely fail to know specific dates. We need to teach it to know the date!
 
 For web, you can do this:
 
-```bash
-uv web # runs all agents under this folder. You want to point it to  "mysolution/" subfolder
-```
+1. `uv run  adk web .` : This runs all agents under this folder. You want to point it to  "mysolution/" subfolder
+2. choose `mysolution/` on top right . ![alt text](image-1.png)
+3. Ask your question in text or via microphone something along the lines of the "litmus prompt".
+
+Note you need to call `adk web` from the upper folder, respect to the CLI version.
+
+Here's a possible solution, with a date semi-hallucination. Note 3 of the 5 booking links are working! Not bad.
+
+![Gemini knows he doesnt know the date and is giving some random hotel names](image-2.png)
 
 ## Step 2: Add the `now()` tool
 

@@ -1,3 +1,5 @@
+"""This is the solution_1 agent code for the simple travel agent workshop."""
+
 from google.adk.agents import Agent
 # from google.adk.tools import google_search # (This will be needed in STEP 3)
 
