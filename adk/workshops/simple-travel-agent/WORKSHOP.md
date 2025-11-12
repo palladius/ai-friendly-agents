@@ -5,10 +5,13 @@ Welcome to the ADK workshop! In this session, we will build a simple travel agen
 *Curiosity*: This workshop was built by Riccardo Carlesso with help from Gemini CLI. If you're curious, you can find how i did it by
 looking at the `GEMINI.md` and `WORKSHOP_PLAN.md` in this folder.
 
+<img src="adk_web_select_steps.png" width="30%" align="right">
+
 **Solutions**. Note: the code is all contained under `steps/`. If you don't want to cheat, you can just read there. For the purpose of this
 Lab, this is ok. We're not here to learn how to write good ADK code, but how to set up yuour environment to get GOOD code automatically written
 under your direction. (1) Installing the software, (2) configuring / getting it to work, and (3) entering the Golden Feedback Loop is what we
-really want you to learn here. You can also test them all at the same time via `just web-4steps`! ![ADK Web select 1-4 steps](image-6.png)
+really want you to learn here. You can also test them all at the same time via `just web-4steps`!
+
 
 ## Prerequisites (Installation)
 
@@ -49,14 +52,13 @@ As simple as that! This allows ADK to know where your code is: in `agent.py`.
 Create a file named `mysolution/agent.py`:
 
 ```python
-"""This is the solution_1 agent code for the simple travel agent workshop."""
-
 from google.adk.agents import Agent
 
 root_agent = Agent(
     name="travel_basic",
     model="gemini-2.5-flash",
-    instruction="You are a helpful travel assistant. You can help with general travel advice based on your knowledge.",
+    instruction="You are a helpful travel assistant." +
+    "You can help with general travel advice based on your knowledge.",
 )
 ```
 
@@ -86,28 +88,32 @@ Ideally close to Gare de Lyon. Budget: below 200eur per night.
 This is a smart prompt as it tests time and hotels and will fail differently in steps 1,2,3 and should fully succeed only in step 4.
 You can of course use any prompt you want!
 
+<img src="yellow_robot_step1_cli.png" width="50%" align="right">
+
 Run it from bash (CLI):
 ```bash
 uv run mysolution/agent.py
 ```
 
-![Gemini doesnt even know what day is it](image.png)
 
 Try asking it the "litmus prompt" above.
 
-It will likely fail to know specific dates. We need to teach it to know the date!
+
+It will likely **fail** to know specific dates. We need to teach it to know the date!
 
 For web, you can do this:
 
 1. `uv run  adk web .` : This runs all agents under this folder. You want to point it to  "mysolution/" subfolder
-2. choose `mysolution/` on top right . ![alt text](image-1.png)
+2. choose `mysolution/` on top right . <img src="adk_web_select_folder.png" width="30%" align="right">
 3. Ask your question in text or via microphone something along the lines of the "litmus prompt".
 
 Note you need to call `adk web` from the upper folder, respect to the CLI version.
 
 Here's a possible solution, with a date semi-hallucination. Note 3 of the 5 booking links are working! Not bad.
 
-![Gemini knows he doesnt know the date and is giving some random hotel names](image-2.png)
+<!--
+<img src="yellow_robot_step1_web.png" width="50%" align="right">
+-->
 
 ## Step 2: Add the `now()` tool
 
@@ -118,10 +124,12 @@ Add this function to `agent.py`:
 ```python
 from datetime import datetime
 
-def now() -> str:
+def now() -> dict:
     """Returns the current date and time."""
-    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return {"current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 ```
+
+<img src="yellow_robot_step2.png" width="50%" align="right">
 
 Update the agent definition to include the tool:
 
@@ -135,16 +143,19 @@ Update the agent definition to include the tool:
     )
 ```
 
-Run it again and ask the same question. It should now know the date, and be vague about hotels!
+Run it again and ask the same question. It should now know the date (good), and be vague about hotels (bad)!
 
-Try asking it: the above prompt. You should see that it now nails the time but still no clue re hotels.
-
-![Gemini now knows the time!](image-3.png)
 
 
 ## Step 3: Let's use a built-in Tool: `google_search`
 
+<img src="image-4.png" width="40%" align="right">
+
 Now that we know how to create a custom tool, let's explore how to use one of the powerful built-in tools provided by ADK: `google_search`. This allows our agent to access real-time information from the web.
+
+```
+TODO(ricc): provide the code
+```
 
 ### The Challenge: Mixed Tool Types with Gemini 2.5 Flash
 
@@ -208,6 +219,8 @@ This is not part of the main workshop path, but serves as a proof-of-concept for
 
 Now that we've seen both custom and built-in tools, let's graduate to something more powerful: the **Model-as-a-Tool** pattern using the **Model Context Protocol (MCP)**.
 
+<img src="image-5.png" width="50%" align="right">
+
 To keep this step focused on the powerful capabilities of MCP, we will once again **replace** our previous tool (`google_search`). We will reintroduce our simple `get_now` tool to run alongside the `airbnb_mcp` tool. This demonstrates how an agent can use multiple, compatible tools (in this case, a `FunctionTool` and an `MCPToolset`) to perform complex tasks.
 
 **Code:** `steps/step04_mcp/agent.py`
@@ -220,10 +233,9 @@ from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
 from mcp import StdioServerParameters
 
-def get_now() -> str:
+def now() -> dict:
     """Returns the current date and time."""
-    date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return {"status": "success", "current_time": date_now}
+    return {"current_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 # Configure the Airbnb MCP Toolset
 airbnb_mcp = MCPToolset(
@@ -239,11 +251,13 @@ root_agent = Agent(
     name="travel_mcp",
     model="gemini-2.5-flash",
     instruction="You are a helpful travel assistant. You can find accommodation using Airbnb, and have access to the current time.",
-    tools=[get_now, airbnb_mcp],
+    tools=[now, airbnb_mcp],
 )
 ```
 
 ### How to Run
+
+
 
 This step requires `npx` to be installed on your system. The agent will use it to download and run the Airbnb MCP server on the fly.
 

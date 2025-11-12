@@ -7,17 +7,16 @@ from google.adk.agents import Agent
 # from google.adk.tools import google_search
 # =========================================
 
-def get_now() -> str:
+def now() -> dict:
     """Returns the current date and time."""
-    date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return {"status": "success", "current_time": date_now}
+    return {"current_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 root_agent = Agent(
     name="travel_tool",
     model="gemini-2.5-flash",
     instruction="You are a helpful travel assistant. You have access to the current time.",
     tools=[
-        get_now,
+        now,
         # =========================================
         # STEP 3: Uncomment to register Google Search
         # =========================================

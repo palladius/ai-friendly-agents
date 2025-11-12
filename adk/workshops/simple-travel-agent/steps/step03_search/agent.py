@@ -2,10 +2,9 @@ import datetime
 from google.adk.agents import Agent
 from google.adk.tools import google_search
 
-def get_now() -> dict:
+def now() -> dict:
     """Returns the current date and time."""
-    date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return {"status": "success", "current_time": date_now}
+    return {"current_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 root_agent = Agent(
     name="travel_search",
