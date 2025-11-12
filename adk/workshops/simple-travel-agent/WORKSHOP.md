@@ -8,7 +8,7 @@ looking at the `GEMINI.md` and `WORKSHOP_PLAN.md` in this folder.
 **Solutions**. Note: the code is all contained under `steps/`. If you don't want to cheat, you can just read there. For the purpose of this
 Lab, this is ok. We're not here to learn how to write good ADK code, but how to set up yuour environment to get GOOD code automatically written
 under your direction. (1) Installing the software, (2) configuring / getting it to work, and (3) entering the Golden Feedback Loop is what we
-really want you to learn here.
+really want you to learn here. You can also test them all at the same time via `just web-4steps`! ![ADK Web select 1-4 steps](image-6.png)
 
 ## Prerequisites (Installation)
 
@@ -21,9 +21,10 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 2. **[Gemini CLI](https://github.com/google-gemini/gemini-cli)**. For gemini CLI, find installation instructions here: https://github.com/google-gemini/gemini-cli .
    1. Note this requires having `npm` or `npx` installed.
-   2. On Mac, you can use `brew`
+   2. On Mac, you can use `brew` as per
    3. On Windows, you can use `chocolatey` or just download the executable from https://nodejs.org/en/download
 
+3. [optional] Install Casey's [just](https://github.com/casey/just), it's a 21st century `Makefile` if you like makefiles.
 
 ## Step 0: set up your work environment
 
@@ -65,7 +66,9 @@ This is true for all the steps. ADK allows you to test your agent in two ways: C
 * **CLI** is best for quick and automated tests
 * **Web** is the best to visually see what's happening, use microphone (!), and troubleshooting.
 
-A good prompt which tests all steps can be this:
+**Tip**: for the purpose of this exercise, for everything except unit testing, use the Web. It's really amazing!
+
+A good prompt which properly tests steps 1-2-3-4 can be this:
 
 ```markdown
 ## Smart "litmus prompt"
@@ -139,32 +142,71 @@ Try asking it: the above prompt. You should see that it now nails the time but s
 ![Gemini now knows the time!](image-3.png)
 
 
-## Step 3: Enter Google Search!
+## Step 3: Let's use a built-in Tool: `google_search`
 
-It still can't find real hotels. Let's add Google Search.
+Now that we know how to create a custom tool, let's explore how to use one of the powerful built-in tools provided by ADK: `google_search`. This allows our agent to access real-time information from the web.
 
-Import it:
+### The Challenge: Mixed Tool Types with Gemini 2.5 Flash
+
+A key concept in agent development is understanding how different models handle various tool types. The `gemini-2.5-flash` model has a specific limitation: **it cannot mix Grounding-based tools (like `google_search`) and Function Calling-based tools (like our `get_now` function) in the same agent turn.**
+
+Attempting to do so will result in a `400 Bad Request` error from the model. You can find more details on this in our [`docs/ISSUES.md`](./docs/ISSUES.md) file.
+
+To ensure a smooth learning curve, this step will demonstrate the simplest way to integrate `google_search`: by **replacing** our previous tool.
+
+For those interested in the more advanced solution that allows both tool types to coexist, we have created a special, optional step: `step03b_search_and_tool`. We'll cover that later.
+
+### Your Goal
+
+Your task is to modify the agent from Step 2. Instead of using the `get_now` tool, you will import and use the `google_search` tool from the ADK library.
+
+**Code:** `steps/step03_search/agent.py`
+
 ```python
+from google.adk.agents import Agent
 from google.adk.tools import google_search
+
+root_agent = Agent(
+    model="gemini-2.5-flash",
+    tools=[google_search],
+    instruction="""
+You are a travel agent.
+Your job is to help the user plan a trip.
+You have access to a search engine.
+If you don't know the answer, you can use the search engine.
+If you know the 3-letter airport code, you can use it to get the weather.
+When you are done, reply with "DONE".
+""",
+)
 ```
 
-Add it to the tools list:
-```python
-        tools=[now, google_search]
+### How to Run
+
+To see your search-enabled agent in action, run:
+
+```bash
+just run-step3
 ```
 
-Run it again. Now it can find real hotels!
+Try asking it a question that requires current information, like "What's the weather like in London?" or "What are some tourist attractions in Paris?".
 
-![Search for hotels now works for Google Search](image-4.png)
+---
 
-## Step 4: Integrate MCP (Model Context Protocol)
+### Optional Advanced Step: Using `google_search` and `get_now` Together
 
-**MISSING CODE**
+For advanced users who want to see how to overcome the mixed-tool limitation, we've prepared `step03b`. This step uses a wrapper called `AgentTool` to make `google_search` compatible with other function-calling tools.
 
-To get more specific data (like *Airbnb* listings), we can use MCP.
-*(Instructions for setting up MCP client would go here)*
+You can examine the code in `steps/step03b_search_and_tool/agent.py` and run it with:
 
-![Now Gemini can find hotels via AirBNB MCP](image-5.png)
+```bash
+just run-step3b
+```
+
+This is not part of the main workshop path, but serves as a proof-of-concept for more complex agent architectures.
+
+## Step 4: Let's use a more complex Tool: `MCP`
+
+Now that we've seen both custom and built-in tools, let's graduate to something more powerful: the **Model-as-a-Tool** pattern using the **Model Context Protocol (MCP)**.
 
 ## Milestone 1 Complete!
 
@@ -174,12 +216,14 @@ Please take a moment to vibecode an additional functionality with "Gemini CLI".
 
 ## Ideas
 
-1. [complex] You can integrate with Flights or other stuff to create a multi-faceted multi functional travel agent.
-1. [easy] Add emojis or specify some output format you like (eg, a table with hotel emoji, followed by price, followed by 1-5 star emojis based with 🌕🌕🌕🌗🌑 to do halves too!).
-1. [easy] Change the prompt to teach it things you're specifically looking for or against (pet-friendly, no ground floor, silent, close to public transport, ..) and test it. Maybe add a personal rating like "a YOUR_NAME-rating from 1-10" based on the above, and sort by that rating.
-1. [medium] Create a subagent who does the `HotelSearch` and create a `BudgetAgent` or a `LocationAgent` which can double down and iterate over hotels respecting your location needs, eg "not more than X km from LOCATION". If the API doesn't allow this, it might be some back and forth helped by GoogleSearch. Note: Gemini cLI can help you.
-1. [medium] Integrate with [A2A](https://github.com/a2aproject/A2A). Make it an A2A agent! Again, ask Gemini CLI for help!
-1. [easy] Any Operator in the room? Deploy to Cloud Run! Or to Agent Engine!
+Some Ideas of different complexity.
+
+ 1. 🔴 [complex] You can integrate with Flights or other stuff to create a multi-faceted multi functional travel agent.
+ 1. 🟢 [easy] Add emojis or specify some output format you like (eg, a table with hotel emoji, followed by price, followed by 1-5 star emojis based with 🌕🌕🌕🌗🌑 to do halves too!).
+ 1. 🟢 [easy] Change the prompt to teach it things you're specifically looking for or against (pet-friendly, no ground floor, silent, close to public transport, ..) and test it. Maybe add a personal rating like "a YOUR_NAME-rating from 1-10" based on the above, and sort by that rating.
+ 1. 🟡 [medium] Create a subagent who does the `HotelSearch` and create a `BudgetAgent` or a `LocationAgent` which can double down and iterate over hotels respecting your location needs, eg "not more than X km from LOCATION". If the API doesn't allow this, it might be some back and forth helped by GoogleSearch. Note: Gemini cLI can help you.
+ 1. 🟡 [medium] Integrate with [A2A](https://github.com/a2aproject/A2A). Make it an A2A agent! Again, ask Gemini CLI for help!
+ 1. 🟢 [easy] Any Operator in the room? Deploy to Cloud Run! Or to Agent Engine!
 
 ## How to vibe code using ADK
 

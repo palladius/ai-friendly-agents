@@ -9,6 +9,7 @@ steps = [
     "steps.step01_basic.agent",
     "steps.step02_tool.agent",
     "steps.step03_search.agent",
+    "steps.step03b_search_and_tool.agent",
     "steps.step04_mcp.agent",
 ]
 

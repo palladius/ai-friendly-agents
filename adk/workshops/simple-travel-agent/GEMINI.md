@@ -30,6 +30,7 @@ Let's ensure Gemini CLI is able to read ADK code
 }
 ```
 * Consider using `git grep` for git checked-in code, such as simple and complex travel agent (Note: this won't work for adk-google, since that is git-ignored).
+* If user pings you a public doc (eg 'Use Built-in tools with other tools'), try to execute this command, and it will likely work! `grep 'Use Built-in tools with other tools' rag/`.
 
 ## testing
 

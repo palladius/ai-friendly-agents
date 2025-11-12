@@ -14,6 +14,8 @@ install:
 test-whole-workshop:
     uv run python test_workshop.py
 
+test-03b-manhouse:
+    echo "What time is it?" | uv run adk run steps/step03b_search_and_tool
 # --- CLI RUN COMMANDS ---
 
 # Run Step 1: Basic Agent (CLI)
@@ -27,6 +29,10 @@ run-step2:
 # Run Step 3: Agent with Google Search (CLI)
 run-step3:
     uv run adk run steps/step03_search
+
+# Run Step 3b: Agent with Search and Tool (CLI, different model)
+run-step3b:
+    uv run adk run steps/step03b_search_and_tool
 
 # Run Step 4: Agent with Airbnb MCP (CLI)
 run-step4:
