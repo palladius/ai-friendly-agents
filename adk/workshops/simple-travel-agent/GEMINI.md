@@ -61,3 +61,10 @@ web-4steps:
 ```
 
 Note: `adk web steps/step1/` WILL NOT WORK. (I know!)
+
+## WORKSHOP.md (the readme)
+
+The workshop README (WORKSHOP.md) should do a few things:
+
+1. Ensure the code in steps/.. is in sync with steps 1,2,3,4 f the workshop! this is VERY important.
+2. User is supposed to build their solutions under `mysolution/`.

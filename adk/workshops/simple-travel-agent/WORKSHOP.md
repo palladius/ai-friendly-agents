@@ -1,67 +1,87 @@
 # Workshop: Building a Simple Travel Agent
 
-Welcome to the ADK workshop! In this session, we will build a simplified travel agent step-by-step.
+Welcome to the ADK workshop! In this session, we will build a simple travel agent step-by-step.
 
-## Prerequisites
+*Curiosity*: This workshop was built by Riccardo Carlesso with help from Gemini CLI. If you're curious, you can find how i did it by
+looking at the `GEMINI.md` and `WORKSHOP_PLAN.md` in this folder.
 
-Ensure you have `uv` installed:
+**Solutions**. Note: the code is all contained under `steps/`. If you don't want to cheat, you can just read there. For the purpose of this
+Lab, this is ok. We're not here to learn how to write good ADK code, but how to set up yuour environment to get GOOD code automatically written
+under your direction. (1) Installing the software, (2) configuring / getting it to work, and (3) entering the Golden Feedback Loop is what we
+really want you to learn here.
+
+## Prerequisites (Installation)
+
+For this tutorial, you need to install:
+1. `python` and `uv` (best package manager for Python). Ensure you have `uv` installed:
+
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
+2. **[Gemini CLI](https://github.com/google-gemini/gemini-cli)**. For gemini CLI, find installation instructions here: https://github.com/google-gemini/gemini-cli .
+   1. Note this requires having `npm` or `npx` installed.
+   2. On Mac, you can use `brew`
+   3. On Windows, you can use `chocolatey` or just download the executable from https://nodejs.org/en/download
+
+
+
+## Step 0: set up your work environment
+
+```bash
+$ mkdir -p mysolution/
+$ touch mysolution/__init__.py mysolution/agent.py
+```
+
+
+
 ## Step 1: Basic Agent
+
 
 Let's start by creating a basic agent that can have a conversation.
 
-Create a file named `agent.py`:
+Create a file named `mysolution/__init__.py`:
 
 ```python
-from google.adk.agents import LlmAgent
-from google.adk.runners import Runner
-from google.adk.sessions import InMemorySessionService
-from google.genai import types
-import asyncio
-
-async def main():
-    # 1. Define the Agent
-    travel_agent = LlmAgent(
-        name="simple_travel_agent",
-        model="gemini-2.5-flash",
-        instruction="You are a helpful travel assistant. You can help users plan their trips.",
-    )
-
-    # 2. Set up Session and Runner
-    session_service = InMemorySessionService()
-    runner = Runner(agent=travel_agent, session_service=session_service)
-
-    # 3. Run the interactive loop
-    print("Travel Agent: Hello! Where would you like to go?")
-    while True:
-        user_input = input("You: ")
-        if user_input.lower() in ["exit", "quit"]:
-            break
-
-        events = runner.run_async(
-            user_id="workshop_user",
-            session_id="session_01",
-            new_message=types.Content(role='user', parts=[types.Part(text=user_input)])
-        )
-
-        async for event in events:
-            if event.is_final_response():
-                print(f"Travel Agent: {event.content.parts[0].text}")
-
-if __name__ == "__main__":
-    asyncio.run(main())
+from .agent import root_agent
 ```
 
-Run it:
+As simple as that! This allows ADK to know where your code is: in `agent.py`.
+
+Create a file named `mysolution/agent.py`:
+
+```python
+from google.adk.agents import Agent
+
+root_agent = Agent(
+    name="travel_basic",
+    model="gemini-2.5-flash",
+    instruction="You are a helpful travel assistant. You can help with general travel advice based on your knowledge.",
+)
+```
+
+### Testing the agent
+
+This is true for all the steps. ADK allows you to test your agent in two ways: CLI and Web.
+* **CLI** is best for quick and automated tests
+* **Web** is the best to visually see what's happening, use microphone (!), and troubleshooting.
+
+Run it from bash (CLI):
 ```bash
-uv run agent.py
+uv run mysolution/agent.py
 ```
 
-Try asking it: "Book a hotel in Milan for today and tomorrow."
-It will likely fail to know specific dates.
+![Gemini doesnt even know what day is it](image.png)
+
+Try asking it: *"Book a hotel in Milan for today and tomorrow"*
+
+It will likely fail to know specific dates. We need to teach it to know the date!
+
+For web, you can do this:
+
+```bash
+uv web # runs all agents under this folder. You want to point it to  "mysolution/" subfolder
+```
 
 ## Step 2: Add the `now()` tool
 
@@ -81,14 +101,18 @@ Update the agent definition to include the tool:
 
 ```python
     travel_agent = LlmAgent(
-        name="simple_travel_agent",
-        model="gemini-2.5-flash",
-        instruction="You are a helpful travel assistant. Use the `now` tool to get the current date when needed.",
+        name="..",
+        model="..",
+        instruction="..",
+        # This is the only line you want to add.
         tools=[now]
     )
 ```
 
-Run it again and ask the same question. It should now know the date!
+Run it again and ask the same question. It should now know the date, and be vague about hotels!
+
+Try asking it: *"Book a hotel in Milan for today and tomorrow"*
+
 
 ## Step 3: Add Google Search
 
