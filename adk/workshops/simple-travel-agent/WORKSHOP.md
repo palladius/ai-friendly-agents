@@ -89,7 +89,7 @@ A good prompt which properly tests steps 1-2-3-4 can be this (smart "litmus prom
 
 This is a smart prompt as it tests time and hotels and will fail differently in steps 1,2,3 and should fully succeed only in step 4. You can of course use any prompt *you* want!
 
-<img src="yellow_robot_step1_cli.png" width="50%" align="right">
+<img src="yellow_robot_step1_cli.nb.png" width="50%" align="right">
 
 Run it from bash (CLI):
 ```bash
@@ -119,7 +119,7 @@ Note you need to call `adk web` from the upper folder, respect to the CLI versio
 
 The agent doesn't know what "today" is. Let's give it a tool.
 
-<img src="yellow_robot_step2.png" width="40%" align="right">
+<img src="yellow_robot_step2.nb.png" width="40%" align="right">
 
 Add this function to `agent.py`:
 
@@ -150,7 +150,7 @@ Run it again and ask the same question. It should now know the date (good), and 
 
 ## Step 3: Let's use a built-in Tool: `google_search`
 
-<img src="image-4.png" width="40%" align="right">
+<img src="yellow_robot_step3.nb.png" width="40%" align="right">
 
 Now that we know how to create a custom tool, let's explore how to use one of the powerful built-in tools provided by ADK: `google_search`. This allows our agent to access real-time information from the web.
 
@@ -201,7 +201,7 @@ Try asking it a question that requires current information, like "What's the wea
 
 ## Step 4: A more sophisticated Tool: MCP
 
-<img src="image-5.png" width="40%" align="right">
+<img src="yellow_robot_step4.nb.png" width="40%" align="right">
 
 Now that we've seen both custom and built-in tools, let's graduate to something more powerful: the **Model-as-a-Tool** pattern using the **Model Context Protocol (MCP)**.
 
