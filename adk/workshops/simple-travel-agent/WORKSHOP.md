@@ -157,21 +157,13 @@ Now that we know how to create a custom tool, let's explore how to use one of th
 TODO(ricc): provide the code
 ```
 
-### The Challenge: Mixed Tool Types with Gemini 2.5 Flash
-
-A key concept in agent development is understanding how different models handle various tool types. The `gemini-2.5-flash` model has a specific limitation: **it cannot mix Grounding-based tools (like `google_search`) and Function Calling-based tools (like our `get_now` function) in the same agent turn.** This is a known model limitation, tracked publicly as [ADK GitHub Issue #969](https://github.com/google/adk-python/issues/969).
-
-Attempting to do so will result in a `400 Bad Request` error from the model. You can find more details on this in our [`docs/ISSUES.md`](./docs/ISSUES.md) file.
-
-To ensure a smooth learning curve, this step will demonstrate the simplest way to integrate `google_search`: by **replacing** our previous tool.
-
-For those interested in the more advanced solution that allows both tool types to coexist, we have created a special, optional step: `step03b_search_and_tool`. We'll cover that later.
+**Note**: `gemini-2.5-flash` cannot mix Google Search with custom tools (see [Issue #969](https://github.com/google/adk-python/issues/969) or [docs/ISSUES.md](./docs/ISSUES.md)), so we will **replace** `now()` with `google_search`.
 
 ### Your Goal
 
-Your task is to modify the agent from Step 2. Instead of using the `get_now` tool, you will import and use the `google_search` tool from the ADK library.
+Your task is to modify the agent from Step 2. Instead of using the `now` tool, you will import and use the `google_search` tool from the ADK library.
 
-**Code:** `steps/step03_search/agent.py`
+**Full Code:** `steps/step03_search/agent.py`
 
 ```python
 from google.adk.agents import Agent
@@ -180,14 +172,11 @@ from google.adk.tools import google_search
 root_agent = Agent(
     model="gemini-2.5-flash",
     tools=[google_search],
-    instruction="""
-You are a travel agent.
+    instruction="""You are a travel agent.
 Your job is to help the user plan a trip.
 You have access to a search engine.
 If you don't know the answer, you can use the search engine.
-If you know the 3-letter airport code, you can use it to get the weather.
-When you are done, reply with "DONE".
-""",
+When you are done, reply with "DONE".""",
 )
 ```
 
@@ -203,7 +192,7 @@ Try asking it a question that requires current information, like "What's the wea
 
 ---
 
-### Optional Advanced Step: Using `google_search` and `get_now` Together
+### Optional Advanced Step: Using `google_search` and `now` Together
 
 For advanced users who want to see how to overcome the mixed-tool limitation, we've prepared `step03b`. This step uses a wrapper called `AgentTool` to make `google_search` compatible with other function-calling tools.
 
@@ -221,7 +210,7 @@ Now that we've seen both custom and built-in tools, let's graduate to something 
 
 <img src="image-5.png" width="50%" align="right">
 
-To keep this step focused on the powerful capabilities of MCP, we will once again **replace** our previous tool (`google_search`). We will reintroduce our simple `get_now` tool to run alongside the `airbnb_mcp` tool. This demonstrates how an agent can use multiple, compatible tools (in this case, a `FunctionTool` and an `MCPToolset`) to perform complex tasks.
+To keep this step focused on the powerful capabilities of MCP, we will once again **replace** our previous tool (`google_search`). We will reintroduce our simple `now` tool to run alongside the `airbnb_mcp` tool. This demonstrates how an agent can use multiple, compatible tools (in this case, a `FunctionTool` and an `MCPToolset`) to perform complex tasks.
 
 **Code:** `steps/step04_mcp/agent.py`
 
