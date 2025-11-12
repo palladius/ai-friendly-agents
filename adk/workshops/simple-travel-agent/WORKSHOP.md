@@ -37,18 +37,21 @@ You're going to create your OWN solution under `mysolution/` so let's create the
 This is the moment where you can open your IDE (Visual Studio Code, IntelliJ, RubyMine, ..) and open the folder.
 
 ```bash
-# Go to a directory, like cd ~/myworkspace/dome-folder/
+# 1. Find an empty directory, and download this repo.
 $ git clone https://github.com/palladius/ai-friendly-agents/
 $ cd adk/workshops/simple-travel-agent/
+
+# 2. Create your solution empty skeleton
 $ mkdir -p mysolution/
 $ touch mysolution/__init__.py mysolution/agent.py
+
+# 3. Call Gemini CLI
 $ gemini  # This runs Gemini CLI under the simple-travel-agent/ folder.
 ```
 
 **Important**. Ensure you're running Gemini CLI from within the `simple-travel-agent/` folder. Also the IDE should show you this as root name. This ensures Gemini CLI picks up the right configuration.
 
 ## Step 1: Basic Agent
-
 
 Let's start by creating a basic agent that can have a conversation.
 
@@ -72,6 +75,8 @@ root_agent = Agent(
     "You can help with general travel advice based on your knowledge.",
 )
 ```
+
+<img src="yellow_robot_step1_cli.nb.png" width="40%" align="right">
 
 ### Testing the agent
 
@@ -100,7 +105,6 @@ A good prompt which properly tests steps 1-2-3-4 can be this (smart "litmus prom
 
 This is a smart prompt as it tests time and hotels and will fail differently in steps 1,2,3 and should fully succeed only in step 4. You can of course use any prompt *you* want!
 
-<img src="yellow_robot_step1_cli.nb.png" width="40%" align="right">
 
 Run it from bash (CLI):
 
@@ -170,8 +174,6 @@ Now that we know how to create a custom tool, let's explore how to use one of th
 
 **Note**: 🚨 `gemini-2.5-flash` cannot mix Google Search with custom tools (see [Issue #969](https://github.com/google/adk-python/issues/969) ), so we will **replace** `now()` with `google_search` for simplicity. More details: [docs/ISSUES.md](./docs/ISSUES.md).
 
-### Your Goal
-
 Your task is to modify the agent from Step 2. Instead of using the `now` tool, you will import and use the `google_search` tool from the ADK library.
 
 
@@ -194,15 +196,9 @@ When you are done, reply with "DONE".""",
 
 ### How to Run
 
-To see your search-enabled agent in action, you need to run your own code!
+Same as per step 1.
 
-1.  **Restart the Agent**: If you are running the Web UI, stop it (CTRL-C) and restart it.
-2.  **Run**: `just web-mysolution` to see it on web (or `just run-mysolution` for CLI).
-3.  **Select**: Choose `mysolution` in the Web UI.
-
-Try asking it a question that requires current information, like "What's the weather like in London?" or "What are some tourist attractions in Paris?".
-
-**Experts only**. For a more advanced integration (using `google_search` and `now` together), check the code in `steps/step03b_search_and_tool/agent.py` and run it with `just run-step3b`.
+**Experts only**. For a more advanced integration (using `google_search` and `now` together), check the code in `steps/step03b_search_and_tool/agent.py` and run it with `just run-step3b`. This is totally optional.
 
 ## Step 4: A more sophisticated Tool: MCP
 
@@ -212,9 +208,9 @@ Now that we've seen both custom and built-in tools, let's graduate to something 
 
 To keep this step focused on the powerful capabilities of MCP, we will once again **replace** our previous tool (`google_search`). We will reintroduce our simple `now` tool to run alongside the `airbnb_mcp` tool. This demonstrates how an agent can use multiple, compatible tools (in this case, a `FunctionTool` and an `MCPToolset`) to perform complex tasks.
 
-**Code:** `steps/step04_mcp/agent.py`
 
 ```python
+# Full Code: steps/step04_mcp/agent.py
 # ... Imports as before
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
@@ -244,17 +240,11 @@ root_agent = Agent(
 ### How to Run
 
 This step requires `npx` to be installed on your system.
+For the rest, this is the same as above.
 
-1.  **Restart**: Stop and restart your agent.
-2.  **Run**:
-    ```bash
-    just web-mysolution
-    ```
-3.  **Test**: Ask the agent to find you a place to stay, for example: "*Find me a 2-bedroom apartment in Rome for next Saturday.*"
+## 🏅 Milestone 1 Complete!
 
-## Milestone 1 Complete!
-
-Congratulations! **You are now an ADK expert!** You've completed the workshop and have successfully built and tested AI agents with custom tools, built-in tools, and advanced MCP tools. You are now ready to build your own amazing agents with the Google Agent Development Kit!
+🏅 Congratulations! 🏅 **You are now an ADK expert!** You've completed the workshop and have successfully built and tested AI agents with custom tools, built-in tools, and advanced MCP tools. You are now ready to build your own amazing agents with the Google Agent Development Kit!
 
 
 
@@ -262,22 +252,22 @@ You now have a functional travel agent that knows the time and can search the we
 
 Please take a moment to vibecode an additional functionality with "Gemini CLI".
 
-## Milestone 2: vibe coding your way through ADK via Gemini CLI
+## 🏅 Milestone 2: vibe coding your way through ADK via Gemini CLI
 
 Now we enter the interesting part of the workshop.
 
 1. ensure you have `git commit`ted the code somewhere safe. You can fork the original code, or create a branch: dont worry, Gemini CLI is great at helping you here!
-2. Find an **idea** to implement. You can check the ideas below, find one yourself, or ask Gemini to look at documentation in rag/ and propose a few smart ideas.
+2. Find an 💡 **idea** to implement. You can check the ideas below, find one yourself, or ask Gemini to look at documentation in rag/ and propose a few smart ideas.
 3. Follow the prerequisites to ensure Gemini *can read* ADK docs, and then you're good to go!
 
-### Ideas
+### 💡 Ideas
 
 Some Ideas of different complexity.
 
  1. 🟢 [easy] Not a python developer? You prefer `go` or `java`? Refactoring the existing code is very simple! Just make sure to download the proper ADK and ask Gemini CLI to do the translation!
  1. 🟢 [easy] Add emojis or specify some output format you like (eg, a table with hotel emoji, followed by price, followed by 1-5 star emojis based with 🌕🌕🌕🌗🌑 to do halves too!).
  1. 🟢 [easy] Change the prompt to teach it things you're specifically looking for or against (pet-friendly, no ground floor, silent, close to public transport, ..) and test it. Maybe add a personal rating like "a YOUR_NAME-rating from 1-10" based on the above, and sort by that rating.
- 1. 🟢 [easy] Any Operator in the room? Deploy to [Cloud Run](https://cloud.google.com/run)! Or to [Agent Engine](https://google.github.io/adk-docs/deploy/agent-engine/)!
+ 1. 🟢 [easy] Any Operator in the room? Deploy to [Cloud Run](https://cloud.google.com/run)! Or to [Agent Engine](https://google.github.io/adk-docs/deploy/agent-engine/)! Did you know you can integrate this agent and call it directly from the new **[Gemini Enterprise](https://cloud.google.com/gemini-enterprise)**?
  1. 🟡 [medium] Create a subagent who does the `HotelSearch` and create a `BudgetAgent` or a `LocationAgent` which can double down and iterate over hotels respecting your location needs, eg "not more than X km from LOCATION". If the API doesn't allow this, it might be some back and forth helped by GoogleSearch. Note: Gemini cLI can help you.
  1. 🟡 [medium] Integrate with [A2A](https://github.com/a2aproject/A2A). Make it an A2A agent! Again, ask Gemini CLI for help!
  1. 🔴 [complex] You can integrate with Flights or other MCP functionality to create a multi-faceted multi functional travel agent.
