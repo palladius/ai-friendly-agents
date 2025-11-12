@@ -15,7 +15,7 @@ Can you add #rooms and #max_guests for each? Also I'd like to know:
 - Ideally, I'd like it pet-friendly.
 
 <!-- If AirBnb is used you can say: -->
-* Refine the search for Milano Isola. PlaceID: "ChIJ1bQ-cy3BhkcRFhYVJNHBZuY"
+* Raffina la ricerca per Milano Isola. PlaceID: "ChIJ1bQ-cy3BhkcRFhYVJNHBZuY"
 ```
 
 

@@ -1,4 +1,5 @@
 from google.adk.agents import Agent
+# from google.adk.tools import google_search # (This will be needed in STEP 3)
 
 # =========================================
 # STEP 2: Uncomment the following lines to add a tool
