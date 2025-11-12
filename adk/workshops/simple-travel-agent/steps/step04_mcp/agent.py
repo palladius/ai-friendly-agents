@@ -7,7 +7,10 @@ from mcp import StdioServerParameters
 
 def now() -> dict:
     """Returns the current date and time."""
-    return {"current_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+    return {
+        "status": "success",
+        "current_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
 
 # Configure the Airbnb MCP Toolset
 airbnb_mcp = MCPToolset(

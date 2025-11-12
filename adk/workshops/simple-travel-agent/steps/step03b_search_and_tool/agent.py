@@ -5,8 +5,11 @@ from google.adk.tools import FunctionTool, google_search
 from google.adk.tools.agent_tool import AgentTool
 
 def now() -> dict:
-    """Returns the current time in ISO format."""
-    return {"current_time": datetime.datetime.now().isoformat()}
+    """Returns the current date and time."""
+    return {
+        "status": "success",
+        "current_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
 
 # Create a simple agent whose only job is to search.
 search_agent = Agent(
