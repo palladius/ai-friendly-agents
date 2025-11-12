@@ -104,8 +104,10 @@ It will likely **fail** to know specific dates. We need to teach it to know the 
 For web, you can do this:
 
 1. `uv run  adk web .` : This runs all agents under this folder. You want to point it to  "mysolution/" subfolder
-2. choose `mysolution/` on top right . <img src="adk_web_select_folder.png" width="30%" align="right">
+2. choose `mysolution/` on top right . See image below
 3. Ask your question in text or via microphone something along the lines of the "litmus prompt".
+
+<img src="adk_web_select_folder.png" width="30%" align="right">
 
 Note you need to call `adk web` from the upper folder, respect to the CLI version.
 
@@ -153,8 +155,9 @@ Run it again and ask the same question. It should now know the date (good), and 
 
 Now that we know how to create a custom tool, let's explore how to use one of the powerful built-in tools provided by ADK: `google_search`. This allows our agent to access real-time information from the web.
 
-```
-TODO(ricc): provide the code
+
+```python
+from google.adk.tools import google_search
 ```
 
 **Note**: 🚨 `gemini-2.5-flash` cannot mix Google Search with custom tools (see [Issue #969](https://github.com/google/adk-python/issues/969) or [docs/ISSUES.md](./docs/ISSUES.md)), so we will **replace** `now()` with `google_search`.
@@ -166,6 +169,7 @@ Your task is to modify the agent from Step 2. Instead of using the `now` tool, y
 **Full Code:** `steps/step03_search/agent.py`
 
 ```python
+# Remember to REMOVE the now() tool here. See above why.
 from google.adk.agents import Agent
 from google.adk.tools import google_search
 
@@ -182,7 +186,15 @@ When you are done, reply with "DONE".""",
 
 ### How to Run
 
-To see your search-enabled agent in action, run: `just run-step3`.
+To see your search-enabled agent in action, you need to run your own code!
+
+1.  **Restart the Agent**: If you are running the Web UI, stop it (CTRL-C) and restart it.
+2.  **Run**:
+    ```bash
+    just web-mysolution
+    ```
+    (Or `just run-mysolution` for CLI).
+3.  **Select**: Choose `mysolution` in the Web UI.
 
 Try asking it a question that requires current information, like "What's the weather like in London?" or "What are some tourist attractions in Paris?".
 
@@ -227,8 +239,14 @@ root_agent = Agent(
 
 ### How to Run
 
+This step requires `npx` to be installed on your system.
 
-This step requires `npx` to be installed on your system. The agent will use it to download and run the Airbnb MCP server on the fly. Now you can ask the agent to find you a place to stay, for example: "*Find me a 2-bedroom apartment in Rome for next Saturday.*"
+1.  **Restart**: Stop and restart your agent.
+2.  **Run**:
+    ```bash
+    just web-mysolution
+    ```
+3.  **Test**: Ask the agent to find you a place to stay, for example: "*Find me a 2-bedroom apartment in Rome for next Saturday.*"
 
 ## Milestone 1 Complete!
 

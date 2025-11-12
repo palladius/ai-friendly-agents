@@ -42,6 +42,17 @@ run-step3b:
 run-step4:
     uv run adk run steps/step04_mcp
 
+# --- USER SOLUTION COMMANDS ---
+
+# Run your solution (CLI)
+run-mysolution:
+    uv run adk run mysolution/
+
+# Run your solution (Web UI) - Select 'mysolution' in the UI
+web-mysolution:
+    @echo "REMEMBER to select 'mysolution/' in the UI after it starts"
+    uv run adk web .
+
 # --- WEB UI COMMANDS ---
 
 # Run Step 1/2/3/4 in Web UI
