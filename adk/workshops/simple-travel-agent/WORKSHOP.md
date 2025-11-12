@@ -134,10 +134,12 @@ Update the agent definition to include the tool:
 
 Run it again and ask the same question. It should now know the date, and be vague about hotels!
 
-Try asking it: *"Book a hotel in Milan for today and tomorrow"*
+Try asking it: the above prompt. You should see that it now nails the time but still no clue re hotels.
+
+![Gemini now knows the time!](image-3.png)
 
 
-## Step 3: Add Google Search
+## Step 3: Enter Google Search!
 
 It still can't find real hotels. Let's add Google Search.
 
@@ -153,11 +155,19 @@ Add it to the tools list:
 
 Run it again. Now it can find real hotels!
 
+![Search for hotels now works for Google Search](image-4.png)
+
 ## Step 4: Integrate MCP (Model Context Protocol)
 
-To get more specific data (like Airbnb listings), we can use MCP.
+**MISSING CODE**
+
+To get more specific data (like *Airbnb* listings), we can use MCP.
 *(Instructions for setting up MCP client would go here)*
+
+![Now Gemini can find hotels via AirBNB MCP](image-5.png)
 
 ## Milestone 1 Complete!
 
-You now have a functional travel agent that knows the time and can search the web.
+You now have a functional travel agent that knows the time and can search the web. The sky is now the limit!
+
+1. You can integrate with Flights or other stuff to create a multi-faceted multi functional travel agent.
