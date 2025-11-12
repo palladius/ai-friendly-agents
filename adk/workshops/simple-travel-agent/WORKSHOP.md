@@ -70,23 +70,24 @@ This is true for all the steps. ADK allows you to test your agent in two ways: C
 
 **Tip**: for the purpose of this exercise, for everything except unit testing, use the Web. It's really amazing!
 
-A good prompt which properly tests steps 1-2-3-4 can be this:
+A good prompt which properly tests steps 1-2-3-4 can be this (smart "litmus prompt"):
 
-```markdown
-## Smart "litmus prompt"
 
-Hi, I'd like to book a hotel in Paris for tomorrow evening alone, one night, in Paris city center.
-Ideally close to Gare de Lyon. Budget: below 200eur per night.
+> Hi, I'd like to book a hotel in Paris for tomorrow evening alone, one night, in Paris city center.
+> Ideally close to Gare de Lyon. Budget: below 200eur per night.
+>
+> 1. Tell me which YYYYMMDD and Day of the Week is tomorrow.
+> 2. Tell me which hotel do you see for tomorrow (at least 3). I want to see: > price, address, some rating (in form of XX/YY, eg "4.7/5" - from Google Hotels, Booking or Airbnb), # reviews. Give me them in TABULAR format. Ideally, hotel name should be linked to some sort of URL of the hotel (do no bother adding a URL column). Ensure the link is legit (it works and page points to info about the hotel!)
 
-1. Tell me which YYYYMMDD and Day of the Week is tomorrow.
-2. Tell me which hotel do you see for tomorrow (at least 3). I want to see: price, address, some rating (from Google
-   Hotels, Booking or Airbnb). Give me them in TABULAR format. Ideally, hotel name should be linked to some sort of URL
-   of the hotel. Ensure the link is legit (it works and page points to info about the hotel!)
+<!-- additional content you might want to add
 
-```
+> 3. Give me a recommendation: what would you choose and why.
+> Non negotiable: full apartment, private bathroom, no ground floor in a big city.
 
-This is a smart prompt as it tests time and hotels and will fail differently in steps 1,2,3 and should fully succeed only in step 4.
-You can of course use any prompt you want!
+-->
+
+
+This is a smart prompt as it tests time and hotels and will fail differently in steps 1,2,3 and should fully succeed only in step 4. You can of course use any prompt *you* want!
 
 <img src="yellow_robot_step1_cli.png" width="50%" align="right">
 
@@ -111,11 +112,8 @@ For web, you can do this:
 
 Note you need to call `adk web` from the upper folder, respect to the CLI version.
 
-Here's a possible solution, with a date semi-hallucination. Note 3 of the 5 booking links are working! Not bad.
+[Here's](yellow_robot_step1_web.png) a possible solution, with a date semi-hallucination. Note 3 of the 5 booking links are working! Not bad.
 
-<!--
-<img src="yellow_robot_step1_web.png" width="50%" align="right">
--->
 
 ## Step 2: Add the `now()` tool
 
