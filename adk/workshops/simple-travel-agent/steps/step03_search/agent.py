@@ -1,9 +1,7 @@
 import datetime
 from google.adk.agents import Agent
-from google.adk.tools import tool
 from google.adk.tools import google_search
 
-@tool
 def get_now() -> str:
     """Returns the current date and time."""
     date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -12,6 +10,8 @@ def get_now() -> str:
 root_agent = Agent(
     name="travel_search",
     model="gemini-2.5-flash",
-    instruction="You are a helpful travel assistant. You can search the web for the latest travel information and have access to the current time.",
-    tools=[get_now, google_search],
+    instruction="You are a helpful travel assistant. You can search the web for the latest travel information.",
+    # Note: gemini-2.5-flash currently does not support mixing Google Search (Grounding)
+    # with other Function Calling tools. So we replace get_now with google_search here.
+    tools=[google_search],
 )

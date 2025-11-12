@@ -10,18 +10,31 @@ list:
 install:
     uv sync
 
-# Run Step 1: Basic Agent
+# Test that all workshop steps can at least be imported (catches syntax/import errors)
+test-whole-workshop:
+    uv run python test_workshop.py
+
+# --- CLI RUN COMMANDS ---
+
+# Run Step 1: Basic Agent (CLI)
 run-step1:
     uv run adk run steps/step01_basic
 
-# Run Step 2: Agent with a custom tool
+# Run Step 2: Agent with a custom tool (CLI)
 run-step2:
     uv run adk run steps/step02_tool
 
-# Run Step 3: Agent with Google Search
+# Run Step 3: Agent with Google Search (CLI)
 run-step3:
     uv run adk run steps/step03_search
 
-# Run Step 4: Agent with Airbnb MCP
+# Run Step 4: Agent with Airbnb MCP (CLI)
 run-step4:
     uv run adk run steps/step04_mcp
+
+# --- WEB UI COMMANDS ---
+
+# Run Step 1/2/3/4 in Web UI
+web-4steps:
+    uv run adk web steps/
+

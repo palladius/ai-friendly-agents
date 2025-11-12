@@ -1,6 +1,5 @@
 import datetime
 from google.adk.agents import Agent
-from google.adk.tools import tool
 
 # =========================================
 # STEP 3: Uncomment the following line to import Google Search
@@ -8,7 +7,6 @@ from google.adk.tools import tool
 # from google.adk.tools import google_search
 # =========================================
 
-@tool
 def get_now() -> str:
     """Returns the current date and time."""
     date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

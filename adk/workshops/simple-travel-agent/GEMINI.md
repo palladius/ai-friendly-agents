@@ -46,3 +46,18 @@ echo "Same test as above" | uv run adk run steps/step02_tool/
 ImportError: Fail to load 'step02_tool' module. cannot import name 'tool' from 'google.adk.tools' (/usr/local/google/home/ricc/git/ai-friendly-agents/adk/workshops/simple-travel-agent/.venv/lib/python3.13/site-packages/google/adk/tools/__init__.py)
 [..]
 ```
+
+## ADK Web
+
+ADK web is great for user troubleshooting.
+However, it has a weird folder caveat.
+
+Note that `adk web` needs a super-folder for agents to be tested, so we can test all steps this way:
+
+```
+# Run Step 1/2/3/4 in Web UI
+web-4steps:
+    uv run adk web steps/
+```
+
+Note: `adk web steps/step1/` WILL NOT WORK. (I know!)

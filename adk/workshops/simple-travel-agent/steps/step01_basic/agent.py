@@ -3,10 +3,8 @@ from google.adk.agents import Agent
 # =========================================
 # STEP 2: Uncomment the following lines to add a tool
 # =========================================
-# from google.adk.tools import tool
 # import datetime
 #
-# @tool
 # def get_now() -> str:
 #     """Returns the current date and time."""
 #     date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
