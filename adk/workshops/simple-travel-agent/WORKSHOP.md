@@ -170,4 +170,31 @@ To get more specific data (like *Airbnb* listings), we can use MCP.
 
 You now have a functional travel agent that knows the time and can search the web. The sky is now the limit!
 
-1. You can integrate with Flights or other stuff to create a multi-faceted multi functional travel agent.
+Please take a moment to vibecode an additional functionality with "Gemini CLI".
+
+## Ideas
+
+1. [complex] You can integrate with Flights or other stuff to create a multi-faceted multi functional travel agent.
+1. [easy] Add emojis or specify some output format you like (eg, a table with hotel emoji, followed by price, followed by 1-5 star emojis based with 🌕🌕🌕🌗🌑 to do halves too!).
+1. [easy] Change the prompt to teach it things you're specifically looking for or against (pet-friendly, no ground floor, silent, close to public transport, ..) and test it. Maybe add a personal rating like "a YOUR_NAME-rating from 1-10" based on the above, and sort by that rating.
+1. [medium] Create a subagent who does the `HotelSearch` and create a `BudgetAgent` or a `LocationAgent` which can double down and iterate over hotels respecting your location needs, eg "not more than X km from LOCATION". If the API doesn't allow this, it might be some back and forth helped by GoogleSearch. Note: Gemini cLI can help you.
+1. [medium] Integrate with [A2A](https://github.com/a2aproject/A2A). Make it an A2A agent! Again, ask Gemini CLI for help!
+1. [easy] Any Operator in the room? Deploy to Cloud Run! Or to Agent Engine!
+
+## How to vibe code using ADK
+
+Let's now enter the heart of the workshop.
+
+To vibe code a functionality, we recommend that you download the whole ADK [python ADK](https://github.com/google/adk-python) (note: this can be adapted very easily to your favorite language, like [Java](https://github.com/google/adk-java) or [Go](https://github.com/google/adk-go)!)
+
+Code is under `./download-adk.sh`.
+
+Ensure your `gemini/settings.json` contains the following:
+
+```json
+{ "fileFiltering": {
+    "respectGitIgnore": false
+}}
+```
+
+**Why?** We want Gemini to be able to read those files, while they're safely git-ignored. This does the trick (but potentially opens a lot of `node_modules/` and `__pycache__/` garbage - so use with caution!)
