@@ -21,3 +21,13 @@ This effectively isolates the `google_search` tool within its own agent context,
 
 *   The main workshop track (`step03_search`) has been modified to *replace* the `get_now` tool with `google_search`. This ensures the primary workshop path is functional and demonstrates how to add a search tool simply.
 *   A separate, optional step (`step03b_search_and_tool`) has been created. This step demonstrates the `AgentTool` workaround, allowing both `get_now` and `google_search` to work together using `gemini-2.5-flash`.
+
+
+# Fix
+
+Gemini CLI was able to fix the code.
+* See code in 03b.. TODO(Gemini).
+* See screenshot here:
+
+
+![step03b does the trick actually](image.png)
