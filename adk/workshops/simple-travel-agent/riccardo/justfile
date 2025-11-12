@@ -1,8 +1,0 @@
-
-# to install `just` follow instructions in: https://github.com/casey/just
-
-list:
-    just -l
-
-run:
-    adk run sample_code/

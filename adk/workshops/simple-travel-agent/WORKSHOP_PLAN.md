@@ -1,4 +1,6 @@
-After talking to my friend Maurizio Ipsale, this is my overall plan.
+## WORKSHOP_PLAN.md
+
+After talking to my friend Maurizio Ipsale, the path is clear. Here is my overall plan.
 
 1. Take some simple things from my `complex-travel-agent/` and downport them to my `simple-travel-agent/`.
 

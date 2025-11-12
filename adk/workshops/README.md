@@ -5,7 +5,7 @@ This folder contains a few workshops, but let me explain:
 2. 📁 `simple-travel-agent/`. This is an extract from the above to become a L100 ADK + Gemini CLI workshop. In a way, **this is the REAL workshop**.
    1. In case this breaks, I tested 4 steps solutions with this tag: [workshop-simple-travel-agent-v0.2](https://github.com/palladius/ai-friendly-agents/tree/workshop-simple-travel-agent-v0.2).
 
-Note: this readme was suprisingly written manually by Riccardo. No GPU was used to write this..
+Note: this readme was surprisingly written manually by Riccardo. No GPU was used to write this..
 
 ![GPUs on derek](image.png)
 
