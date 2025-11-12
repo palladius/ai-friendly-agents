@@ -119,6 +119,8 @@ Note you need to call `adk web` from the upper folder, respect to the CLI versio
 
 The agent doesn't know what "today" is. Let's give it a tool.
 
+<img src="yellow_robot_step2.png" width="40%" align="right">
+
 Add this function to `agent.py`:
 
 ```python
@@ -129,7 +131,6 @@ def now() -> dict:
     return {"current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 ```
 
-<img src="yellow_robot_step2.png" width="50%" align="right">
 
 Update the agent definition to include the tool:
 
