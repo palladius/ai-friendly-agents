@@ -148,7 +148,7 @@ Now that we know how to create a custom tool, let's explore how to use one of th
 
 ### The Challenge: Mixed Tool Types with Gemini 2.5 Flash
 
-A key concept in agent development is understanding how different models handle various tool types. The `gemini-2.5-flash` model has a specific limitation: **it cannot mix Grounding-based tools (like `google_search`) and Function Calling-based tools (like our `get_now` function) in the same agent turn.**
+A key concept in agent development is understanding how different models handle various tool types. The `gemini-2.5-flash` model has a specific limitation: **it cannot mix Grounding-based tools (like `google_search`) and Function Calling-based tools (like our `get_now` function) in the same agent turn.** This is a known model limitation, tracked publicly as [ADK GitHub Issue #969](https://github.com/google/adk-python/issues/969).
 
 Attempting to do so will result in a `400 Bad Request` error from the model. You can find more details on this in our [`docs/ISSUES.md`](./docs/ISSUES.md) file.
 
@@ -207,6 +207,55 @@ This is not part of the main workshop path, but serves as a proof-of-concept for
 ## Step 4: Let's use a more complex Tool: `MCP`
 
 Now that we've seen both custom and built-in tools, let's graduate to something more powerful: the **Model-as-a-Tool** pattern using the **Model Context Protocol (MCP)**.
+
+To keep this step focused on the powerful capabilities of MCP, we will once again **replace** our previous tool (`google_search`). We will reintroduce our simple `get_now` tool to run alongside the `airbnb_mcp` tool. This demonstrates how an agent can use multiple, compatible tools (in this case, a `FunctionTool` and an `MCPToolset`) to perform complex tasks.
+
+**Code:** `steps/step04_mcp/agent.py`
+
+```python
+import datetime
+from google.adk.agents import Agent
+# from google.adk.tools import google_search # Cannot be mixed with Function Tools in gemini-2.5-flash
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
+from mcp import StdioServerParameters
+
+def get_now() -> str:
+    """Returns the current date and time."""
+    date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return {"status": "success", "current_time": date_now}
+
+# Configure the Airbnb MCP Toolset
+airbnb_mcp = MCPToolset(
+    connection_params=StdioConnectionParams(
+        server_params=StdioServerParameters(
+            command='npx',
+            args=["-y", "@openbnb/mcp-server-airbnb"],
+        ),
+    )
+)
+
+root_agent = Agent(
+    name="travel_mcp",
+    model="gemini-2.5-flash",
+    instruction="You are a helpful travel assistant. You can find accommodation using Airbnb, and have access to the current time.",
+    tools=[get_now, airbnb_mcp],
+)
+```
+
+### How to Run
+
+This step requires `npx` to be installed on your system. The agent will use it to download and run the Airbnb MCP server on the fly.
+
+```bash
+just run-step4
+```
+
+Now you can ask the agent to find you a place to stay, for example: "Find me a 2-bedroom apartment in Rome for next week."
+
+## You are now an ADK expert!
+
+Congratulations! You've completed the workshop and have successfully built and tested AI agents with custom tools, built-in tools, and advanced MCP tools. You are now ready to build your own amazing agents with the Google Agent Development Kit!
 
 ## Milestone 1 Complete!
 

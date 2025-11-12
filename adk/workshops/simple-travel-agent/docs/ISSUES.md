@@ -4,7 +4,7 @@ This document lists known issues, limitations, and design decisions made during 
 
 ## `gemini-2.5-flash` Limitation with Mixed Tool Types (Resolved via `AgentTool`)
 
-**Issue:** The `gemini-2.5-flash` model, when used directly within a single `LlmAgent`, does not support making calls that mix different types of tools within the same turn. Specifically, it cannot handle a request that requires both a Grounding-based tool (like the built-in `google_search`) and a Function Calling-based tool (like our custom `get_now` function).
+**Issue:** The `gemini-2.5-flash` model, when used directly within a single `LlmAgent`, does not support making calls that mix different types of tools within the same turn. Specifically, it cannot handle a request that requires both a Grounding-based tool (like the built-in `google_search`) and a Function Calling-based tool (like our custom `get_now` function). This is a known limitation tracked in the official ADK repository under [issue #969](https://github.com/google/adk-python/issues/969).
 
 **Impact:** This limitation initially affected the natural progression of the workshop. The original plan for Step 3 was to *add* `google_search` to the existing `get_now` tool. Doing so resulted in a `400 Bad Request` error from the model API.
 
