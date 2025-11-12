@@ -27,14 +27,25 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
    2. On Mac, you can use `brew` as per
    3. On Windows, you can use `chocolatey` or just download the executable from https://nodejs.org/en/download
 
-3. [optional] Install Casey's [just](https://github.com/casey/just), it's a 21st century `Makefile` if you like makefiles.
+3. `npx` installed (for step 4). Both `npm` and `npx` should come naturally as part of Gemini CLI. If not, ask Gemini CLI to help you here.
+4. [optional] Install Casey's [just](https://github.com/casey/just), it's a 21st century `Makefile` if you like makefiles. Also here: ask Gemini CLI to help you install this, he could do it for you!
 
 ## Step 0: set up your work environment
 
+You're going to create your OWN solution under `mysolution/` so let's create the folder and the two files we need.
+
+This is the moment where you can open your IDE (Visual Studio Code, IntelliJ, RubyMine, ..) and open the folder.
+
 ```bash
+# Go to a directory, like cd ~/myworkspace/dome-folder/
+$ git clone https://github.com/palladius/ai-friendly-agents/
+$ cd adk/workshops/simple-travel-agent/
 $ mkdir -p mysolution/
 $ touch mysolution/__init__.py mysolution/agent.py
+$ gemini  # This runs Gemini CLI under the simple-travel-agent/ folder.
 ```
+
+**Important**. Ensure you're running Gemini CLI from within the `simple-travel-agent/` folder. Also the IDE should show you this as root name. This ensures Gemini CLI picks up the right configuration.
 
 ## Step 1: Basic Agent
 
@@ -128,9 +139,10 @@ from datetime import datetime
 
 def now() -> dict:
     """Returns the current date and time."""
+    my_datetime = ... # Ask Gemini CLI to help you!
     return {
         "status": "success",
-        "current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        "current_time": my_datetime
     }
 ```
 
@@ -141,8 +153,8 @@ Update the agent definition to include the tool:
         name="..",
         model="..",
         instruction="..",
-        # This is the only line you want to add.
-        tools=[now]
+        tools=[now] # <== This is the only line you want to add.
+
     )
 ```
 
@@ -150,26 +162,21 @@ Run it again and ask the same question. It should now know the date (good), and 
 
 
 
-## Step 3: Let's use a built-in Tool: `google_search`
+## Step 3: Let's switch gears: `google_search`
 
 <img src="yellow_robot_step3.nb.png" width="40%" align="right">
 
 Now that we know how to create a custom tool, let's explore how to use one of the powerful built-in tools provided by ADK: `google_search`. This allows our agent to access real-time information from the web.
 
-
-```python
-from google.adk.tools import google_search
-```
-
-**Note**: 🚨 `gemini-2.5-flash` cannot mix Google Search with custom tools (see [Issue #969](https://github.com/google/adk-python/issues/969) or [docs/ISSUES.md](./docs/ISSUES.md)), so we will **replace** `now()` with `google_search`.
+**Note**: 🚨 `gemini-2.5-flash` cannot mix Google Search with custom tools (see [Issue #969](https://github.com/google/adk-python/issues/969) ), so we will **replace** `now()` with `google_search` for simplicity. More details: [docs/ISSUES.md](./docs/ISSUES.md).
 
 ### Your Goal
 
 Your task is to modify the agent from Step 2. Instead of using the `now` tool, you will import and use the `google_search` tool from the ADK library.
 
-**Full Code:** `steps/step03_search/agent.py`
 
 ```python
+# Full Code: `steps/step03_search/agent.py`
 # Remember to REMOVE the now() tool here. See above why.
 from google.adk.agents import Agent
 from google.adk.tools import google_search
@@ -190,11 +197,7 @@ When you are done, reply with "DONE".""",
 To see your search-enabled agent in action, you need to run your own code!
 
 1.  **Restart the Agent**: If you are running the Web UI, stop it (CTRL-C) and restart it.
-2.  **Run**:
-    ```bash
-    just web-mysolution
-    ```
-    (Or `just run-mysolution` for CLI).
+2.  **Run**: `just web-mysolution` to see it on web (or `just run-mysolution` for CLI).
 3.  **Select**: Choose `mysolution` in the Web UI.
 
 Try asking it a question that requires current information, like "What's the weather like in London?" or "What are some tourist attractions in Paris?".
