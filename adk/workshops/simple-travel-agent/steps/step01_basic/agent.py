@@ -10,7 +10,7 @@ from google.adk.agents import Agent
 #
 # def get_now() -> str:
 #     """Returns the current date and time."""
-#     date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+#     date_now = ...
 #     return {"status": "success", "current_time": date_now}
 # =========================================
 

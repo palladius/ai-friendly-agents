@@ -89,23 +89,23 @@ A good prompt which properly tests steps 1-2-3-4 can be this (smart "litmus prom
 
 This is a smart prompt as it tests time and hotels and will fail differently in steps 1,2,3 and should fully succeed only in step 4. You can of course use any prompt *you* want!
 
-<img src="yellow_robot_step1_cli.nb.png" width="50%" align="right">
+<img src="yellow_robot_step1_cli.nb.png" width="40%" align="right">
 
 Run it from bash (CLI):
+
 ```bash
 uv run mysolution/agent.py
 ```
 
 
-Try asking it the "litmus prompt" above.
-
+Try using it the "litmus prompt" above.
 
 It will likely **fail** to know specific dates. We need to teach it to know the date!
 
 For web, you can do this:
 
 1. `uv run  adk web .` : This runs all agents under this folder. You want to point it to  "mysolution/" subfolder
-2. choose `mysolution/` on top right . See image below
+2. choose `mysolution/` on top right (*See image below*)
 3. Ask your question in text or via microphone something along the lines of the "litmus prompt".
 
 <img src="adk_web_select_folder.png" width="30%" align="right">
@@ -130,7 +130,6 @@ def now() -> dict:
     """Returns the current date and time."""
     return {"current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 ```
-
 
 Update the agent definition to include the tool:
 
