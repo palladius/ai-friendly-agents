@@ -2,7 +2,7 @@ import datetime
 from google.adk.agents import Agent
 from google.adk.tools import google_search
 
-def get_now() -> str:
+def get_now() -> dict:
     """Returns the current date and time."""
     date_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return {"status": "success", "current_time": date_now}
