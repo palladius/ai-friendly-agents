@@ -30,7 +30,7 @@ really want you to learn here. You can also test them all at the same time via `
 ## Prerequisites (Installation)
 
 For this tutorial, you need to install:
-1. `python` and `uv` (best package manager for Python). This is needed for **ADK**. Ensure you have `uv` installed:
+1. `python` and `uv` (best package manager for [Python](https://www.python.org/downloads/)). This is needed for **ADK**. Ensure you have [uv](https://github.com/astral-sh/uv) installed:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -60,9 +60,14 @@ $ cd adk/workshops/simple-travel-agent/
 $ mkdir -p mysolution/
 $ touch mysolution/__init__.py mysolution/agent.py
 
-# 3. Call Gemini CLI
+# 4. Installs ADK and MCP via `uv` by reading pyproject.toml
+$ uv sync
+
+# 4. Call Gemini CLI
 $ gemini  # This runs Gemini CLI under the simple-travel-agent/ folder.
 ```
+
+`uv sync` is not strictly required, but if it fails, you know you need to fix your [Python](https://www.python.org/downloads/) or [uv](https://github.com/astral-sh/uv) installation.
 
 **Important**. Ensure you're running Gemini CLI from within the `simple-travel-agent/` folder. Also the IDE should show you this as root name. This ensures Gemini CLI picks up the right configuration.
 
@@ -274,7 +279,7 @@ Now we enter the interesting part of the workshop.
 
 1. ensure you have `git commit`ted the code somewhere safe. You can fork the original code, or create a branch: dont worry, Gemini CLI is great at helping you here!
 2. Find an 💡 **idea** to implement. You can check the ideas below, find one yourself, or ask Gemini to look at documentation in rag/ and propose a few smart ideas.
-3. Follow the prerequisites to ensure Gemini *can read* ADK docs, and then you're good to go!
+3. Follow the **prerequisites** to ensure Gemini *can read* ADK docs, and then you're good to go!
 
 ### 💡 Ideas
 
@@ -293,7 +298,6 @@ Looking for further inspiration?
 2. Ask Gemini CLI to find ideas by looking at documentation under `rag/`.
 
 ## Prerequisites
-
 
 To vibe code a functionality, we recommend that you download the whole ADK [python ADK](https://github.com/google/adk-python) (note: this can be adapted very easily to your favorite language, like [Java](https://github.com/google/adk-java) or [Go](https://github.com/google/adk-go)!)
 
