@@ -289,9 +289,10 @@ Some Ideas of different complexity.
  1. 🟢 [easy] Add emojis or specify some output format you like (eg, a table with hotel emoji, followed by price, followed by 1-5 star emojis based with 🌕🌕🌕🌗🌑 to do halves too!).
  1. 🟢 [easy] Change the prompt to teach it things you're specifically looking for or against (pet-friendly, no ground floor, silent, close to public transport, ..) and test it. Maybe add a personal rating like "a YOUR_NAME-rating from 1-10" based on the above, and sort by that rating.
  1. 🟢 [easy] Any Operator in the room? Deploy to [Cloud Run](https://cloud.google.com/run)! Or to [Agent Engine](https://google.github.io/adk-docs/deploy/agent-engine/)! Did you know you can integrate this agent and call it directly from the new **[Gemini Enterprise](https://cloud.google.com/gemini-enterprise)**?
- 1. 🟡 [medium] Create a subagent who does the `HotelSearch` and create a `BudgetAgent` or a `LocationAgent` which can double down and iterate over hotels respecting your location needs, eg "not more than X km from LOCATION". If the API doesn't allow this, it might be some back and forth helped by GoogleSearch. Note: Gemini cLI can help you.
- 1. 🟡 [medium] Integrate with [A2A](https://github.com/a2aproject/A2A). Make it an A2A agent! Again, ask Gemini CLI for help!
- 1. 🔴 [complex] You can integrate with Flights or other MCP functionality to create a multi-faceted multi functional travel agent.
+ 2. 🟢 [easy] Integrate with 🍌 [NanoBanana MCP](https://github.com/ConechoAI/Nano-Banana-MCP). Requires a [Gemini API Key](https://aistudio.google.com/api-keys).
+ 3. 🟡 [medium] Create a subagent who does the `HotelSearch` and create a `BudgetAgent` or a `LocationAgent` which can double down and iterate over hotels respecting your location needs, eg "not more than X km from LOCATION". If the API doesn't allow this, it might be some back and forth helped by GoogleSearch. Note: Gemini cLI can help you.
+ 4. 🟡 [medium] Integrate with [A2A](https://github.com/a2aproject/A2A). Make it an A2A agent! Again, ask Gemini CLI for help!
+ 5. 🔴 [complex] You can integrate with Flights or other MCP functionality to create a multi-faceted multi functional travel agent.
 
 Looking for further inspiration?
 1. Check in Maurizio's [great ADK tutorial](https://mauripsale.github.io/doc-adk-training/) for some ideas.
