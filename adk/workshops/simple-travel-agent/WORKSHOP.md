@@ -65,11 +65,12 @@ $ uv sync
 
 # 4. Call Gemini CLI
 $ gemini  # This runs Gemini CLI under the simple-travel-agent/ folder.
+# Login with your GMail account.
 ```
 
 `uv sync` is not strictly required, but if it fails, you know you need to fix your [Python](https://www.python.org/downloads/) or [uv](https://github.com/astral-sh/uv) installation.
 
-**Important**. Ensure you're running Gemini CLI from within the `simple-travel-agent/` folder. Also the IDE should show you this as root name. This ensures Gemini CLI picks up the right configuration.
+**Important**. Ensure you're running Gemini CLI from within the 📁 `simple-travel-agent/` folder. Also the IDE should show you this as root name. This ensures Gemini CLI picks up the right configuration. You can always add external folders via `/dir add /your/other/folder`, but 📁 `simple-travel-agent/` provides the **best** initial location.
 
 ## Step 1: Basic Agent
 
