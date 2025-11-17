@@ -1,3 +1,17 @@
+<!--
+Note: thjis workshop was first done in:
+
+* 2025-11-18: Milan
+
+-->
+
+![Link to the slides](slides-adk-cli-1.svg)
+
+
+* Slides: https://goo.gle/adk-cli-slides
+* Credits: https://goo.gle/adk-cli-credits
+* GitHub: https://goo.gle/adk-cli-workshop
+
 # Workshop: Building a Simple Travel Agent
 
 Welcome to the ADK workshop! In this session, we will build a simple travel agent step-by-step.
@@ -16,7 +30,7 @@ really want you to learn here. You can also test them all at the same time via `
 ## Prerequisites (Installation)
 
 For this tutorial, you need to install:
-1. `python` and `uv` (best package manager for Python). Ensure you have `uv` installed:
+1. `python` and `uv` (best package manager for Python). This is needed for **ADK**. Ensure you have `uv` installed:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -24,11 +38,12 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 2. **[Gemini CLI](https://github.com/google-gemini/gemini-cli)**. For gemini CLI, find installation instructions here: https://github.com/google-gemini/gemini-cli .
    1. Note this requires having `npm` or `npx` installed.
-   2. On Mac, you can use `brew` as per
+   2. On Mac, you can use `brew` as per [official docs](https://github.com/google-gemini/gemini-cli).
    3. On Windows, you can use `chocolatey` or just download the executable from https://nodejs.org/en/download
 
-3. `npx` installed (for step 4). Both `npm` and `npx` should come naturally as part of Gemini CLI. If not, ask Gemini CLI to help you here.
-4. [optional] Install Casey's [just](https://github.com/casey/just), it's a 21st century `Makefile` if you like makefiles. Also here: ask Gemini CLI to help you install this, he could do it for you!
+For step 4, you'll also need `npx` installed. Both `npm` and `npx` should come naturally as part of Gemini CLI. If not, ask Gemini CLI to help you here.
+
+Optionally, you might also want to install [just](https://github.com/casey/just), it's a 21st century `Makefile` if you like makefiles. Also here: ask Gemini CLI to help you install this, he could do it for you!
 
 ## Step 0: set up your work environment
 
