@@ -5,7 +5,7 @@ Note: thjis workshop was first done in:
 
 -->
 
-![Link to the slides](slides-adk-cli.svg)
+<img src="slides-adk-cli.svg" width="30%" align="right">
 
 
 * Slides: https://goo.gle/adk-cli-slides
