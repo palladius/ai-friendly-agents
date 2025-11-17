@@ -132,13 +132,14 @@ Try using it the "litmus prompt" above.
 
 It will likely **fail** to know specific dates. We need to teach it to know the date!
 
+<img src="adk_web_select_folder.png" width="30%" align="right">
+
 For web, you can do this:
 
 1. `uv run  adk web .` : This runs all agents under this folder. You want to point it to  "mysolution/" subfolder
-2. choose `mysolution/` on top right (*See image below*)
+2. choose `mysolution/` on top right (*See image beside*)
 3. Ask your question in text or via microphone something along the lines of the "litmus prompt".
 
-<img src="adk_web_select_folder.png" width="30%" align="right">
 
 Note you need to call `adk web` from the upper folder, respect to the CLI version.
 
