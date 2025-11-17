@@ -54,7 +54,7 @@ This is the moment where you can open your IDE (Visual Studio Code, IntelliJ, Ru
 ```bash
 # 1. Find an empty directory, and download this repo.
 $ git clone https://github.com/palladius/ai-friendly-agents/
-$ cd adk/workshops/simple-travel-agent/
+$ cd ai-friendly-agents/adk/workshops/simple-travel-agent/
 
 # 2. Create your solution empty skeleton
 $ mkdir -p mysolution/
