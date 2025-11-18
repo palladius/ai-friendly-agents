@@ -102,6 +102,7 @@ root_agent = Agent(
 ### Testing the agent
 
 This is true for all the steps. ADK allows you to test your agent in two ways: CLI and Web.
+
 * **CLI** is best for quick and automated tests
 * **Web** is the best to visually see what's happening, use microphone (!), and troubleshooting.
 
@@ -130,9 +131,12 @@ This is a smart prompt as it tests time and hotels and will fail differently in 
 Run it from bash (CLI):
 
 ```bash
-uv run mysolution/agent.py
+# 1. If ADK was installed:
+adk run simple_solution/
+# ... but if you get: -bash: adk: command not found"
+# 2. Call ADK cli script through UV to avoid python install nightmares.
+uv run adk run simple_solution/
 ```
-
 
 Try using it the "litmus prompt" above.
 
@@ -186,7 +190,12 @@ Update the agent definition to include the tool:
 
 Run it again and ask the same question. It should now know the date (good), and be vague about hotels (bad)!
 
+You can also test it with something like this:
 
+```bash
+# LEt's pretend we're in Milan. This should call the tool and respond correctly (possibly with some TZ math issues)
+echo "What time is it in Milan?" | uv run adk run mysolution/
+```
 
 ## Step 3: Let's switch gears: `google_search`
 
