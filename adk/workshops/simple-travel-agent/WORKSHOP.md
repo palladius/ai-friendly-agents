@@ -132,10 +132,10 @@ Run it from bash (CLI):
 
 ```bash
 # 1. If ADK was installed:
-adk run simple_solution/
+adk run mysolution/
 # ... but if you get: -bash: adk: command not found"
 # 2. Call ADK cli script through UV to avoid python install nightmares.
-uv run adk run simple_solution/
+uv run adk run mysolution/
 ```
 
 Try using it the "litmus prompt" above.
