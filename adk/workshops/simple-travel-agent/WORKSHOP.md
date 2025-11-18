@@ -45,6 +45,18 @@ For step 4, you'll also need `npx` installed. Both `npm` and `npx` should come n
 
 Optionally, you might also want to install [just](https://github.com/casey/just), it's a 21st century `Makefile` if you like makefiles. Also here: ask Gemini CLI to help you install this, he could do it for you!
 
+3. **Authentication**. You need either a Google Cloud Project with Vertex AI enabled, or a Google AI Studio API Key.
+   - **Option A (Recommended for Workshop):** Export your API Key:
+     ```bash
+     export GOOGLE_API_KEY="your-api-key"
+     ```
+   - **Option B (Vertex AI):** Authenticate with gcloud:
+     ```bash
+     gcloud auth application-default login
+     export VERTEX_PROJECT_ID="your-project-id"
+     export VERTEX_LOCATION="us-central1"
+     ```
+
 ## Step 0: set up your work environment
 
 You're going to create your OWN solution under `mysolution/` so let's create the folder and the two files we need.
@@ -314,7 +326,7 @@ To vibe code a functionality, we recommend that you download the whole ADK [pyth
 
 Code is under `./download-adk.sh`.
 
-Ensure your `gemini/settings.json` contains the following:
+Ensure your `.gemini/settings.json` contains the following:
 
 ```json
 { "fileFiltering": {

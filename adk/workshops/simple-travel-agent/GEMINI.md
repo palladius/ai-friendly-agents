@@ -38,7 +38,7 @@ Ensure all versions of the workshop are tested.
 For instance:
 
 ```bash
-# This wotks
+# This works
 echo "I'd like to book a hotel in milan for next Tuesday, Im alone and have no budget preference." | uv run adk run steps/step01_basic/
 
 # This is broken
