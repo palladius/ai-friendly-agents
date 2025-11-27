@@ -2,35 +2,37 @@
 
 ## Workshop creation
 
-* Whenever possible, inherit or learn from the more-complex, mostly-working code in `../complex-travel-agent/`.
-* For ease of TESTING, let's ensure we have code in python which we can then test manually.
-* Let's ensure we have a folder "sample_code/" with sample code:
-  * python code for the agent
-  * a library subfolder for tools and "less visible code"
-  * a test folder to test python. Tests should return fast, lets concentrate on Unit tests for now.
-  * a `Justfile` with some sample invocations: `just test`, `just list`, ..
-  * Some commented code for the next step. Example: a perfectly defined Tool function,
+- Whenever possible, inherit or learn from the more-complex, mostly-working code in `../complex-travel-agent/`.
+- For ease of TESTING, let's ensure we have code in python which we can then test manually.
+- Let's ensure we have a folder "sample_code/" with sample code:
+  - python code for the agent
+  - a library subfolder for tools and "less visible code"
+  - a test folder to test python. Tests should return fast, lets concentrate on Unit tests for now.
+  - a `Justfile` with some sample invocations: `just test`, `just list`, ..
+  - Some commented code for the next step. Example: a perfectly defined Tool function,
     commented out,
-  * A `pyproject.toml` for `uv`. We use `uv` and `uvx` to execute python with automatic library installation which doesn't depend on sourcing `.env`. This is because
-* To ensure ease between student code and solution, we probably need to mirror the code into a `.solutions/` secret folder with FULLY working code. This way we can easily go back and forth between the REAL solution and the half-baked solution we give to students.
+  - A `pyproject.toml` for `uv`. We use `uv` and `uvx` to execute python with automatic library installation which doesn't depend on sourcing `.env`. This is because
+- To ensure ease between student code and solution, we probably need to mirror the code into a `.solutions/` secret folder with FULLY working code. This way we can easily go back and forth between the REAL solution and the half-baked solution we give to students.
 
 ## Code creation
 
 Let's ensure Gemini CLI is able to read ADK code
 
-* Download Google ADK locally. To do this, execute `./download-adk.sh`.
-* Read Google ADK python library under `./rag/adk-python/`.
-* Before writing code for ADK, make sure you at least read docs in `rag/adk-python/llms-full.txt` but be prepared to fully leverage the codebase for complex tasks like adding MCP client or tooling or deploying to Cloud Run / Vertex AI.
-* If you can't read the folder, work with user to add this config to `.gemini/config.json`:
+- Download Google ADK locally. To do this, execute `./download-adk.sh`.
+- Read Google ADK python library under `./rag/adk-python/`.
+- Before writing code for ADK, make sure you at least read docs in `rag/adk-python/llms-full.txt` but be prepared to fully leverage the codebase for complex tasks like adding MCP client or tooling or deploying to Cloud Run / Vertex AI.
+- If you can't read the folder, work with user to add this config to `.gemini/config.json`:
 
 ```json
-{ "fileFiltering": {
+{
+  "fileFiltering": {
     "respectGitIgnore": false
   }
 }
 ```
-* Consider using `git grep` for git checked-in code, such as simple and complex travel agent (Note: this won't work for adk-google, since that is git-ignored).
-* If user pings you a public doc (eg 'Use Built-in tools with other tools'), try to execute this command, and it will likely work! `grep 'Use Built-in tools with other tools' rag/`.
+
+- Consider using `git grep` for git checked-in code, such as simple and complex travel agent (Note: this won't work for adk-google, since that is git-ignored).
+- If user pings you a public doc (eg 'Use Built-in tools with other tools'), try to execute this command, and it will likely work! `grep 'Use Built-in tools with other tools' rag/`.
 
 ## testing
 
@@ -69,3 +71,9 @@ The workshop README (WORKSHOP.md) should do a few things:
 
 1. Ensure the code in steps/.. is in sync with steps 1,2,3,4 f the workshop! this is VERY important.
 2. User is supposed to build their solutions under `mysolution/`.
+
+## Errors
+
+- **DO NOT** use `gemini-1.5` or `gemini-2.0` models. Anything below 2.5 is banned unless you make a VERY good reason for it. Check with user.
+- DO NOT edit .env unless i explicitly ask you.
+- DO NOT edit Justfile unless I explicitly ask you to add/modify a target.
