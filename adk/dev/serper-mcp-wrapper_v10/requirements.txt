@@ -1,1 +1,4 @@
 google-adk==1.2.0
+python-dotenv
+requests
+google-search-results

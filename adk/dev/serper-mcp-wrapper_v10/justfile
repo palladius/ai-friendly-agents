@@ -10,7 +10,13 @@ list:
 # Test the ilyazub serpapi-mcp-server
 # only search
 test-ilyazub:
-	SERPAPI_API_KEY="${SERPAPI_API_KEY}" python test/ilyazub-serpapi-mcp-server.py
+	@echo "Starting ilyazub serpapi-mcp-server in the background..."
+	@uv run python third-party/serpapi-mcp-server/src/serpapi-mcp-server/server.py & 
+	@sleep 2 # Give the server a moment to start
+	@echo "Running the test script..."
+	@SERPAPI_API_KEY="${SERPAPI_API_KEY}" python test/ilyazub-serpapi-mcp-server.py
+	@echo "Killing the server..."
+	@killall python
 
 # Test MCP Market from https://mcpmarket.com/server/serper-search-and-scrape
 # This is BAD. Only has google_search and scrape.

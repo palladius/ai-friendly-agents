@@ -2,5 +2,8 @@
 name = "serper-mcp-wrapper"
 version = "0.1.0"
 dependencies = [
-    "google-adk==1.2.0"
+    "google-adk==1.2.0",
+    "python-dotenv",
+    "requests",
+    "google-search-results"
 ]
