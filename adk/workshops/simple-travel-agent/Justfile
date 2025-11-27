@@ -50,7 +50,7 @@ run-step5:
 # tests nanobanana mcp briefly
 test-05:
     # 1. Lets check what time is it - current model should use get_now tool
-    echo "Create an image of Geneva by night" | uv run adk run steps/step05_mcp2_nanobanana
+    echo "Create an image of Geneva by night, when done copy it as ./Geneva_by_night.png and exit." | uv run adk run steps/step05_mcp2_nanobanana
     
 
 # --- USER SOLUTION COMMANDS ---

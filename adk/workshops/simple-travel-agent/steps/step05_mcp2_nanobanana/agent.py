@@ -18,8 +18,10 @@ nanobanana_mcp = MCPToolset(
         server_params=StdioServerParameters(
             command='uvx',
             args=["nanobanana-mcp-server@latest"],
-            environment={
+            # env, not  environment!
+            env={
                 "GEMINI_API_KEY": gemini_api_key,
+                #GOOGLE_API_KEY: ...
                 "IMAGE_OUTPUT_DIR": IMAGE_OUTPUT_DIR,
             }
         ),
