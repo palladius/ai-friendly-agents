@@ -42,6 +42,17 @@ run-step3b:
 run-step4:
     uv run adk run steps/step04_mcp
 
+# Run Step 44 Agent with NanoBanana MCP (CLI)
+run-step5:
+    echo this would make more sense for ADK WEB...
+    uv run adk run steps/step05_mcp2_nanobanana
+
+# tests nanobanana mcp briefly
+test-05:
+    # 1. Lets check what time is it - current model should use get_now tool
+    echo "Create an image of Geneva by night" | uv run adk run steps/step05_mcp2_nanobanana
+    
+
 # --- USER SOLUTION COMMANDS ---
 
 # Run your solution (CLI)
