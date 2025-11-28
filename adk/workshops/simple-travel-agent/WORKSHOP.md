@@ -10,12 +10,12 @@ Note: thjis workshop was first done in:
 
 <img src="events/adk-worskhop-qr-code.png" width="40%" align="right">
 
-- [Workshop self-link](https://github.com/palladius/ai-friendly-agents/blob/main/adk/workshops/simple-travel-agent/WORKSHOP.md): https://goo.gle/adk-cli-workshop
+[Workshop self-link](https://github.com/palladius/ai-friendly-agents/blob/main/adk/workshops/simple-travel-agent/WORKSHOP.md): https://goo.gle/adk-cli-workshop
 
-## Event Information
+**_Event Information_**
 
-- 🌍 **Milan Nov 2025 Workshop Details**: [obsolete](events/202511-milan.md)
-- 🌍 **Geneva 2025 Workshop Details**: [upcoming](events/20251204-geneva.md)
+- 🇨🇭 **Geneva** 📅 Dec 2025 **[Workshop instructions](events/20251204-geneva.md)**. Slides: https://goo.gle/adk-cli-geneve-slides
+- 🇮🇹 **Milan 📅 Nov 2025**: [obsolete](events/202511-milan.md)
 
 # Workshop: Building a Simple Travel Agent
 
