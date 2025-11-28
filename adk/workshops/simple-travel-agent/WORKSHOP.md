@@ -7,9 +7,16 @@ Note: thjis workshop was first done in:
 
 <img src="slides-adk-cli.svg" width="30%" align="right">
 
-- Slides: https://goo.gle/adk-cli-slides
-- Credits: https://goo.gle/adk-cli-credits
 - GitHub: https://goo.gle/adk-cli-workshop
+
+* Event Geneva 4Dec25:
+
+  - Slides: TODO -with my new GH pages thingy
+  - Credits: https://goo.gle/geneva-credits
+
+* Event Milan Nov25:
+  - Google Slides Milan Nov 25: https://goo.gle/adk-cli-slides (obsolete)
+  - Credits Milan: https://goo.gle/adk-cli-credits (depleted)
 
 # Workshop: Building a Simple Travel Agent
 
