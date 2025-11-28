@@ -295,24 +295,26 @@ Now we enter the interesting part of the workshop.
 
 ### 💡 Ideas
 
-Some Ideas of different complexity.
+Here's a menu with some Ideas of different complexity.
 
 1.  🟢 [easy] Not a python developer? You prefer `go` or `java`? Refactoring the existing code is very simple! Just make sure to download the proper ADK and ask Gemini CLI to do the translation!
 1.  🟢 [easy] Add emojis or specify some output format you like (eg, a table with hotel emoji, followed by price, followed by 1-5 star emojis based with 🌕🌕🌕🌗🌑 to do halves too!).
 1.  🟢 [easy] Change the prompt to teach it things you're specifically looking for or against (pet-friendly, no ground floor, silent, close to public transport, ..) and test it. Maybe add a personal rating like "a YOUR_NAME-rating from 1-10" based on the above, and sort by that rating.
 1.  🟢 [easy] Any Operator in the room? Deploy to [Cloud Run](https://cloud.google.com/run)! Or to [Agent Engine](https://google.github.io/adk-docs/deploy/agent-engine/)! Did you know you can integrate this agent and call it directly from the new **[Gemini Enterprise](https://cloud.google.com/gemini-enterprise)**?
-1.  🟢 [easy] Integrate with 🍌 [NanoBanana MCP](https://github.com/ConechoAI/Nano-Banana-MCP). Requires a [Gemini API Key](https://aistudio.google.com/api-keys).
+1.  🟢 [easy] Integrate `adk run`` with 🍌 [NanoBanana MCP](https://github.com/ConechoAI/Nano-Banana-MCP). Requires a [Gemini API Key](https://aistudio.google.com/api-keys). Here you'll be able to create images but not visualize them. See below for a harder variant.
 1.  🟡 [medium] Create a subagent who does the `HotelSearch` and create a `BudgetAgent` or a `LocationAgent` which can double down and iterate over hotels respecting your location needs, eg "not more than X km from LOCATION". If the API doesn't allow this, it might be some back and forth helped by GoogleSearch. Note: Gemini cLI can help you.
 1.  🟡 [medium] Integrate with [A2A](https://github.com/a2aproject/A2A). Make it an A2A agent! Again, ask Gemini CLI for help!
 1.  🔴 [complex] You can integrate with Flights or other MCP functionality to create a multi-faceted multi functional travel agent.
-1.  🔴 [complex] Integrate ADK web with 🍌 [NanoBanana MCP](https://github.com/ConechoAI/Nano-Banana-MCP). This is harder than the one above, and you can find some tips in https://github.com/palladius/ai-friendly-agents/issues/11 - [here](https://github.com/palladius/ai-friendly-agents/issues/11). This took me 3h of back and forth with Gemini CLI, Gemini3 and both of us reading docs/code from `rag/`!
+1.  🔴 [complex] Integrate ADK web with 🍌 [NanoBanana MCP](https://github.com/ConechoAI/Nano-Banana-MCP). This is harder than the one above, and you can find some tips in https://github.com/palladius/ai-friendly-agents/issues/11 . This took the author 3 hours of back and forth with Gemini CLI, Gemini3 and both of us reading docs/code from `rag/`!
+
+![Adding Geneva image as part of ADK WEB](geneva-in-adk-web.png)
 
 Looking for further inspiration?
 
 1. Check in Maurizio's [great ADK tutorial](https://mauripsale.github.io/doc-adk-training/) for some ideas.
 2. Ask Gemini CLI to find ideas by looking at documentation under `rag/`: a possible prompt might be: `Is there a feature in here which seems very succulent to you? Give me 3 proposals and let's implement together the one I choose`.
 
-## Prerequisites
+## Prerequisites for ADK "RAG"
 
 To vibe code a functionality, we recommend that you download the whole ADK [python ADK](https://github.com/google/adk-python) (note: this can be adapted very easily to your favorite language, like [Java](https://github.com/google/adk-java) or [Go](https://github.com/google/adk-go)!)
 
