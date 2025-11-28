@@ -55,9 +55,10 @@ web-mysolution:
 
 # --- WEB UI COMMANDS ---
 
-# Run Step 1/2/3/4 in Web UI
+# Run Step 1/2/3/4 in Web UI and logs under log/ ..
 web-4steps:
-    uv run adk web steps/
+    #uv run adk web steps/
+    mkdir -p log && uv run adk web steps/ > log/web.log 2>&1
 
 clean:
     rm -rf .venv/
