@@ -11,7 +11,7 @@ gemini_api_key = os.environ.get("GEMINI_API_KEY")
 if not gemini_api_key:
     raise ValueError("GEMINI_API_KEY environment variable not set.")
 
-IMAGE_OUTPUT_DIR = "./nanobanana_step5/"
+IMAGE_OUTPUT_DIR = "./step05_mcp2_nanobanana/nanobanana_step5/"
 
 # TOOL 1: The original MCP Toolset to generate the image file
 # Note: this has a number of tools:
