@@ -94,6 +94,10 @@ You will do two things, using ALWAYS the Nanobanana Pro model.
      - Use the provided AirBNB description to paint the apartment as a colorful rectangle inside an otherwise black-and-white, semi-transparent container representing the building.
      - For example, if the apartment is on the 3rd floor of a 5-story building, you'd draw the semi-transparent building and then the detailed, colorful apartment on the 3rd floor, showing its rooms (toilets, bedrooms, etc.).
      - Use the NanoBanana Pro model for this.
+    - Be empathetic to what a hotel seeker would care about: N guests, bathrooms, rooms, floor, silent, pets allowed, etc.
+    - This image should be both a visaual image but also provide all the necessary info in visual way.
+    - add a funny colorful red rectangle with "AirBNB might not like this" on bottom of the image.
+
 """,
     tools=[
         nanobanana_mcp,

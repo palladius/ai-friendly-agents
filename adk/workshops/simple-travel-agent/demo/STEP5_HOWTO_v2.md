@@ -57,8 +57,8 @@ If this works:
 cd ~/git/ai-friendly-agents-step5-branch/ &&
     git checkout 20251127-step5 &&
     find adk/workshops/simple-travel-agent/ | grep step05 &&
-    cd adk/workshops/simple-travel-agent/steps/ &&
-    adk web
+    cd adk/workshops/simple-travel-agent/ &&
+    uv run adk web steps/
 ```
 
 Open browser: http://localhost:8000/

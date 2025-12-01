@@ -17,7 +17,7 @@ airbnb_mcp = MCPToolset(
     connection_params=StdioConnectionParams(
         server_params=StdioServerParameters(
             command='npx',
-            args=["-y", "@openbnb/mcp-server-airbnb"],
+            args=["-y", "@openbnb/mcp-server-airbnb", "--ignore-robots-txt"],
         ),
     )
 )
