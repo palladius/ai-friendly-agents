@@ -283,6 +283,11 @@ root_agent = Agent(
 This step requires `npx` to be installed on your system.
 For the rest, this is the same as above.
 
+### Caveats/ Errors
+
+If you get a `robots.txt` restriction error, you cn patch the MCP with an ignore robots directive. 
+Read the docs for more details: https://github.com/openbnb-org/mcp-server-airbnb
+
 ## 🏅 Milestone 1 Complete!
 
 🏅 Congratulations! 🏅 **You are now an ADK expert!** You've completed the workshop and have successfully built and tested AI agents with custom tools, built-in tools, and advanced MCP tools. You are now ready to build your own amazing agents with the Google Agent Development Kit!
