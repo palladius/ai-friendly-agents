@@ -104,3 +104,6 @@ You will do two things, using ALWAYS the Nanobanana Pro model.
         display_image_with_adk,
     ],
 )
+
+
+# Ciao dal Mac
