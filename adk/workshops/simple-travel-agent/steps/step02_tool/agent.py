@@ -11,7 +11,8 @@ def now() -> dict:
     """Returns the current date and time."""
     return {
         "status": "success",
-        "current_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        "current_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "msg": "Hello from Geneve, CH",
     }
 
 root_agent = Agent(

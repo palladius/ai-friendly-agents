@@ -40,10 +40,19 @@ nanobanana_mcp = MCPToolset(
     )
 )
 
+def now() -> dict:
+    """Returns the current date and time."""
+    return {
+        "status": "success",
+        "current_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "msg": "Hello from Geneve, CH",
+    }
+
+
 # TOOL 2: A new tool to read a local image file and display it in the chat
 async def display_image_with_adk(filename: str, tool_context: ToolContext):
     """Reads an image file from the local disk and displays it in the chat as an artifact."""
-    
+
     # The nanobanana server provides a relative path, let's ensure it's correct
     # The IMAGE_OUTPUT_DIR is where the server saves the files.
     full_path = os.path.join(IMAGE_OUTPUT_DIR, os.path.basename(filename))
@@ -51,7 +60,7 @@ async def display_image_with_adk(filename: str, tool_context: ToolContext):
     try:
         with open(full_path, "rb") as f:
             image_bytes = f.read()
-        
+
         await tool_context.save_artifact(
             os.path.basename(full_path),
             types.Part.from_bytes(data=image_bytes, mime_type='image/png'),
@@ -69,6 +78,8 @@ async def display_image_with_adk(filename: str, tool_context: ToolContext):
 root_agent = Agent(
     name="painter_mcp",
     model="gemini-2.5-flash",
+    #model="gemini-live-2.5-flash-preview", # it's bidirectional but has a few bugs
+
     instruction="""You are a helpful painter assistant. Your primary goal is to create and display images based on user requests.
 
 **Your Workflow (Two Steps):**
@@ -102,6 +113,7 @@ You will do two things, using ALWAYS the Nanobanana Pro model.
     tools=[
         nanobanana_mcp,
         display_image_with_adk,
+        now, # tells the current time
     ],
 )
 
