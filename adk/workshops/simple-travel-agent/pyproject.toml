@@ -6,5 +6,6 @@ requires-python = ">=3.11"
 dependencies = [
     "google-adk==1.19.0",
     "mcp",
-    #"nanobanana-mcp-server", # Useless as we're invoking via MCP.
+    "nanobanana-mcp-server",
+    "requests", # New dependency for web_fetch_curl tool
 ]

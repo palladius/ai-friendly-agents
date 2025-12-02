@@ -1,5 +1,6 @@
 import os
 import datetime
+import requests # Import the requests library
 from google.adk.agents import Agent
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
@@ -48,6 +49,16 @@ def now() -> dict:
         "msg": "Hello from Geneve, CH",
     }
 
+# New tool to fetch content from a URL
+def web_fetch_curl(url: str) -> dict:
+    """Fetches content from a given URL using requests library, acting like a cross-platform curl."""
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status() # Raise an exception for HTTP errors
+        return {"status": "success", "url": url, "content": response.text}
+    except requests.exceptions.RequestException as e:
+        return {"status": "failed", "url": url, "error": str(e)}
+
 
 # TOOL 2: A new tool to read a local image file and display it in the chat
 async def display_image_with_adk(filename: str, tool_context: ToolContext):
@@ -77,10 +88,9 @@ async def display_image_with_adk(filename: str, tool_context: ToolContext):
 
 root_agent = Agent(
     name="painter_mcp",
-    model="gemini-2.5-flash",
-    #model="gemini-live-2.5-flash-preview", # it's bidirectional but has a few bugs
+    model="gemini-2.5-flash", # it's bidirectional but has a few bugs
 
-    instruction="""You are a helpful painter assistant. Your primary goal is to create and display images based on user requests.
+    instruction="""You are a helpful painter assistant. Your primary goal is to create and display images based on user requests. You can now also fetch content from the web using the `web_fetch_curl` tool.
 
 **Your Workflow (Two Steps):**
 1.  **`generate_image(prompt: str)`**: First, you MUST call this tool to create an image. The prompt you create for this tool will follow the detailed creative rules below. This tool returns the filename of the generated image.
@@ -93,7 +103,7 @@ You will do two things, using ALWAYS the Nanobanana Pro model.
    - **Example**: "Milano Isola", or "Geneva in winter".
    - **Function Logic**: `paint_location(location_name: str, location_description: str = NULLABLE)`.
    - **Details**:
-     - If the description is empty, you might need to find information first (though you don't have a search tool right now).
+     - If the description is empty but you have a URL, you must use the `web_fetch_curl` tool to find information first.
      - When painting a destination, add the location string in a nice rectangle at the bottom center of the image.
      - Also add one small banana to the top right of the pic. 🍌
      - also ad a small blue rectangle on top left "Made with ADK", white over blue.
@@ -114,6 +124,7 @@ You will do two things, using ALWAYS the Nanobanana Pro model.
         nanobanana_mcp,
         display_image_with_adk,
         now, # tells the current time
+        web_fetch_curl, # New web fetching tool
     ],
 )
 

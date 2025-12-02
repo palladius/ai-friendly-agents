@@ -41,3 +41,5 @@ Can you add #rooms and #max_guests for each? Also I'd like to know:
 
 
 ## Geneve
+
+See demo in `demo/STEP5_HOWTO_v2.md`
