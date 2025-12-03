@@ -286,8 +286,10 @@ For the rest, this is the same as above.
 
 ### Caveats/ Errors
 
-If you get a `robots.txt` restriction error, you cn patch the MCP with an ignore robots directive. 
+1. If you get a `robots.txt` restriction error, you cn patch the MCP with an ignore robots directive. 
 Read the docs for more details: https://github.com/openbnb-org/mcp-server-airbnb
+
+2. If you get a `timeout` error (5 seconds being too low for Airbnb to get responses), look at ADK documentation on how to increase the timeout to, say, 30 seconds. Or.. use Gemini CLI to do it!
 
 ## 🏅 Milestone 1 Complete!
 
