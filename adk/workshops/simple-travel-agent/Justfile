@@ -70,6 +70,12 @@ web-mysolution:
 web-4steps:
     mkdir -p log && uv run adk web steps/ > log/web.log 2>&1
 
+demo:  
+    #!/bin/bash
+    source .env
+    echo "DEBUG GEMINI_API_KEY=$GEMINI_API_KEY"
+    just web-4steps
+
 clean:
     rm -rf .venv/
 
@@ -89,3 +95,7 @@ nanobanana-gen-favicon:
 
 create-geneve-slides-image:
     gemini --yolo -p "execute the prompt in @demo/geneve-choice.md (read only!) and create the diagram as per instructions"
+
+# Authenticates to GCP
+auth:
+    gcloud auth login --update-adc
