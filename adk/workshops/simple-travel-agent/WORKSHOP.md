@@ -289,7 +289,7 @@ For the rest, this is the same as above.
 1. If you get a `robots.txt` restriction error, you cn patch the MCP with an ignore robots directive. 
 Read the docs for more details: https://github.com/openbnb-org/mcp-server-airbnb
 
-2. If you get a `timeout` error (5 seconds being too low for Airbnb to get responses), look at ADK documentation on how to increase the timeout to, say, 30 seconds. Or.. use Gemini CLI to do it!
+2. If you get a `timeout` error (5 seconds being too low for Airbnb to get responses), look at ADK documentation on how to increase the timeout to, say, 30 seconds. Or.. use Gemini CLI to do it! Note that on 3dec25m Cloud Shell gave me a timoeut error, I fixed the timeout error, and still got errors, until I forced it to the previous versin: `args=["-y", "@openbnb/mcp-server-airbnb@0.1.2", "--ignore-robots-txt"]`. 
 
 ## 🏅 Milestone 1 Complete!
 
