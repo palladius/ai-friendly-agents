@@ -50,7 +50,7 @@ For step 4, you'll also need `npx` installed. Both `npm` and `npx` should come n
 
 Optionally, you might also want to install [just](https://github.com/casey/just), it's a 21st century `Makefile` if you like makefiles. Also here: ask Gemini CLI to help you install this, he could do it for you!
 
-3. **Authentication**. You need either a Google Cloud Project with Vertex AI enabled, or a Google AI Studio API Key.
+3. **Authentication**. You need either a Google Cloud Project with Vertex AI enabled, or a [Google AI Studio API Key](https://aistudio.google.com/api-keys).
    - **Option A (Recommended for Workshop):** Export your API Key:
      ```bash
      export GOOGLE_API_KEY="your-api-key"
@@ -70,18 +70,18 @@ This is the moment where you can open your IDE (Visual Studio Code, IntelliJ, Ru
 
 ```bash
 # 1. Find an empty directory, and download this repo.
-$ git clone https://github.com/palladius/ai-friendly-agents/
-$ cd ai-friendly-agents/adk/workshops/simple-travel-agent/
+git clone https://github.com/palladius/ai-friendly-agents/
+cd ai-friendly-agents/adk/workshops/simple-travel-agent/
 
 # 2. Create your solution empty skeleton
-$ mkdir -p mysolution/
-$ touch mysolution/__init__.py mysolution/agent.py
+mkdir -p mysolution/
+touch mysolution/__init__.py mysolution/agent.py
 
 # 4. Installs ADK and MCP via `uv` by reading pyproject.toml
-$ uv sync
+uv sync
 
 # 4. Call Gemini CLI
-$ gemini  # This runs Gemini CLI under the simple-travel-agent/ folder.
+gemini  # This runs Gemini CLI under the simple-travel-agent/ folder.
 # Login with your GMail account.
 ```
 
@@ -93,7 +93,7 @@ $ gemini  # This runs Gemini CLI under the simple-travel-agent/ folder.
 
 Let's start by creating a basic agent that can have a conversation.
 
-Create a file named `mysolution/__init__.py`:
+Edit the file called `mysolution/__init__.py` by adding the following content:
 
 ```python
 from .agent import root_agent
@@ -101,7 +101,7 @@ from .agent import root_agent
 
 As simple as that! This allows ADK to know where your code is: in `agent.py`.
 
-Create a file named `mysolution/agent.py`:
+Edit the file called `mysolution/agent.py` by adding the following content:
 
 ```python
 from google.adk.agents import Agent
@@ -174,7 +174,7 @@ The agent doesn't know what "today" is. Let's give it a tool.
 
 <img src="yellow_robot_step2.nb.png" width="40%" align="right">
 
-Add this function to `agent.py`:
+Add this function to `agent.py` just before the `root_agent` definition:
 
 ```python
 from datetime import datetime
@@ -215,7 +215,7 @@ echo "What time is it in Milan?" | uv run adk run mysolution/
 
 Now that we know how to create a custom tool, let's explore how to use one of the powerful built-in tools provided by ADK: `google_search`. This allows our agent to access real-time information from the web.
 
-**Note**: 🚨 `gemini-2.5-flash` cannot mix Google Search with custom tools (see [Issue #969](https://github.com/google/adk-python/issues/969) ), so we will **replace** `now()` with `google_search` for simplicity. More details: [docs/ISSUES.md](./docs/ISSUES.md).
+**Note**: 🚨 `gemini-2.5-flash` cannot natively mix Google Search with custom tools (see [Issue #969](https://github.com/google/adk-python/issues/969) ), so we will **replace** `now()` with `google_search` for simplicity. More details: [docs/ISSUES.md](./docs/ISSUES.md).
 
 Your task is to modify the agent from Step 2. Instead of using the `now` tool, you will import and use the `google_search` tool from the ADK library.
 
@@ -266,7 +266,7 @@ airbnb_mcp = MCPToolset(
     connection_params=StdioConnectionParams(
         server_params=StdioServerParameters(
             command='npx',
-            args=["-y", "@openbnb/mcp-server-airbnb"],
+            args=["-y", "@openbnb/mcp-server-airbnb", "--ignore-robots-txt"],
         ),
     )
 )
@@ -333,16 +333,17 @@ Looking for further inspiration?
 
 To vibe code a functionality, we recommend that you download the whole ADK [python ADK](https://github.com/google/adk-python) (note: this can be adapted very easily to your favorite language, like [Java](https://github.com/google/adk-java) or [Go](https://github.com/google/adk-go)!)
 
-Code is under `./download-adk.sh`.
+Code is under `./rag` and can be downloaded with `./download-adk.sh`.
 
-Ensure your `.gemini/settings.json` contains the following:
+Because the `rag` folder is listed in your `.gitignore` file make sure your `.gemini/settings.json` contains the following:
 
 ```json
 {
-  "fileFiltering": {
-    "respectGitIgnore": false
+  "context": {
+    "includeDirectories": ["rag"]
   }
 }
 ```
 
-**Why?** We want Gemini to be able to read those files, while they're safely git-ignored. This does the trick (but potentially opens a lot of `node_modules/` and `__pycache__/` garbage - so use with caution!)
+**Why?** We want Gemini to be able to read those files, while they're safely git-ignored. Technically you could also unhide all .gitignore files by setting `context.fileFiltering.respectGitIgnore` to `false` but this opens a lot of `node_modules/` and `__pycache__/` garbage - so the explicit folder inclusion is the preferred option.
+
