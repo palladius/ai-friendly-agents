@@ -1,0 +1,4 @@
+node_modules/
+__pycache__/
+# see https://github.com/palladius/ai-friendly-agents/issues/10
+steps/

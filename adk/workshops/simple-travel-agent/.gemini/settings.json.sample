@@ -1,0 +1,15 @@
+{
+  "context": {
+    "includeDirectories": ["rag"]
+  },
+  "mcpServers": {
+    "airbnb": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@openbnb/mcp-server-airbnb",
+        "--ignore-robots-txt"
+      ]
+    }
+  }
+}
